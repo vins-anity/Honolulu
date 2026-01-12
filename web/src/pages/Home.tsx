@@ -96,15 +96,15 @@ export function Home() {
                         </div>
 
                         <h1 className="text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-[1.1]">
-                            The vacation your
+                            Put your codebase on
                             <br />
                             <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-400 via-fuchsia-400 to-indigo-400">
-                                codebase deserves
+                                Island Time
                             </span>
                         </h1>
 
                         <p className="text-lg sm:text-xl text-slate-400 max-w-xl mx-auto lg:mx-0 leading-relaxed">
-                            Surf past config chaos. Build and launch your vision fast... like really fast.
+                            Leave the config chaos on the mainland. Surf past the boilerplate and ship your vision before the sun sets.
                         </p>
 
                         <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4">
