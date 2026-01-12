@@ -151,60 +151,105 @@ export function Home() {
             <section className="py-24 px-4 sm:px-6 border-t border-slate-800/50 bg-slate-900/30">
                 <div className="max-w-7xl mx-auto">
                     <div className="text-center mb-16">
-                        <h2 className="text-3xl font-bold text-white mb-4">Architecture that Scales</h2>
-                        <p className="text-slate-400 max-w-2xl mx-auto">
-                            Built on the "Routes, Services, Database" pattern. Simple enough for side projects, robust enough for enterprise.
+                        <h2 className="text-3xl md:text-5xl font-extrabold text-white mb-6 tracking-tight">
+                            The <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-cyan-500">All-Inclusive</span> Resort<br />
+                            for Your Code
+                        </h2>
+                        <p className="text-lg text-slate-400 max-w-2xl mx-auto leading-relaxed">
+                            No hidden fees, no complex setup. Just check in and start building.
+                            We've prepared the ultimate suite for your next big idea.
                         </p>
                     </div>
 
-                    <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {[
-                            {
-                                icon: Zap,
-                                title: "Bun Runtime",
-                                desc: "3x faster package installation and instant startup times compared to Node.js.",
-                            },
-                            {
-                                icon: Code2,
-                                title: "End-to-End Types",
-                                desc: "Share Valibot schemas between your Hono API and React frontend. Catch errors at build time.",
-                            },
-                            {
-                                icon: Database,
-                                title: "Drizzle ORM",
-                                desc: "Type-safe SQL access with postgres.js. Includes migration tools and verified Supabase compatibility.",
-                            },
-                            {
-                                icon: Server,
-                                title: "Deploy Anywhere",
-                                desc: "Zero lock-in. Deploy to Railway, Fly.io, Vercel, or standard Docker containers.",
-                            },
-                            {
-                                icon: Globe,
-                                title: "Modern Frontend",
-                                desc: "React 19 + Vite + Tailwind v4. The latest standards, pre-configured for performance.",
-                            },
-                            {
-                                icon: Terminal,
-                                title: "Developer Experience",
-                                desc: "Biome linting, Vitest testing, and a beautiful CLI generator to get you started.",
-                            },
-                        ].map((feature, i) => (
-                            <div
-                                key={i}
-                                className="p-8 rounded-2xl bg-white/5 border border-white/5 hover:border-white/10 hover:bg-white/[0.07] transition-all"
-                            >
-                                <div className="w-12 h-12 bg-slate-800 rounded-xl flex items-center justify-center mb-6 text-rose-400">
-                                    <feature.icon className="w-6 h-6" />
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        {/* Hero Feature - Speed (Bun) */}
+                        <div className="md:col-span-2 p-8 rounded-3xl bg-gradient-to-br from-slate-900 to-slate-800 border border-slate-700/50 hover:border-teal-500/50 transition-all group relative overflow-hidden">
+                            <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity">
+                                <Zap className="w-48 h-48 text-teal-400" />
+                            </div>
+                            <div className="relative z-10">
+                                <div className="w-12 h-12 bg-teal-500/20 rounded-xl flex items-center justify-center mb-6 text-teal-400">
+                                    <Zap className="w-6 h-6" />
                                 </div>
-                                <h3 className="text-xl font-bold text-white mb-3">
-                                    {feature.title}
-                                </h3>
-                                <p className="text-slate-400 leading-relaxed">
-                                    {feature.desc}
+                                <h3 className="text-2xl font-bold text-white mb-3">Supersonic Jet-Ski (Bun)</h3>
+                                <p className="text-slate-400 text-lg leading-relaxed max-w-md">
+                                    Powered by Bun Installs packages 3x faster than Node.js and starts instantly.
+                                    Feel the wind in your hair as you deploy.
                                 </p>
                             </div>
-                        ))}
+                        </div>
+
+                        {/* Monorepo */}
+                        <div className="md:col-span-1 p-8 rounded-3xl bg-slate-900/50 border border-slate-800 hover:bg-slate-800 transition-colors">
+                            <div className="w-12 h-12 bg-blue-500/20 rounded-xl flex items-center justify-center mb-4 text-blue-400">
+                                <Code2 className="w-6 h-6" />
+                            </div>
+                            <h3 className="text-xl font-bold text-white mb-2">Island Hopping</h3>
+                            <p className="text-slate-400">
+                                Turborepo structure. Jump between API and Web packages effortlessy.
+                            </p>
+                        </div>
+
+                        {/* Types */}
+                        <div className="md:col-span-1 p-8 rounded-3xl bg-slate-900/50 border border-slate-800 hover:bg-slate-800 transition-colors">
+                            <div className="w-12 h-12 bg-rose-500/20 rounded-xl flex items-center justify-center mb-4 text-rose-400">
+                                <Terminal className="w-6 h-6" />
+                            </div>
+                            <h3 className="text-xl font-bold text-white mb-2">The Concierge</h3>
+                            <p className="text-slate-400">
+                                End-to-End Type Safety with Valibot. We catch bugs before they even check in.
+                            </p>
+                        </div>
+
+                        {/* Database - Wide */}
+                        <div className="md:col-span-2 p-8 rounded-3xl bg-gradient-to-br from-slate-900 to-slate-800 border border-slate-700/50 hover:border-purple-500/50 transition-all group relative overflow-hidden">
+                            <div className="absolute -bottom-8 -right-8 p-8 opacity-10 group-hover:opacity-20 transition-opacity">
+                                <Database className="w-40 h-40 text-purple-400" />
+                            </div>
+                            <div className="relative z-10">
+                                <div className="w-12 h-12 bg-purple-500/20 rounded-xl flex items-center justify-center mb-6 text-purple-400">
+                                    <Database className="w-6 h-6" />
+                                </div>
+                                <h3 className="text-2xl font-bold text-white mb-3">5-Star Room Service (Drizzle)</h3>
+                                <p className="text-slate-400 text-lg leading-relaxed max-w-lg">
+                                    Type-safe SQL schema delivered straight to your database.
+                                    Migrations included. Verified compatibility with Supabase & Postgres.
+                                </p>
+                            </div>
+                        </div>
+
+                        {/* Frontend */}
+                        <div className="md:col-span-1 p-8 rounded-3xl bg-slate-900/50 border border-slate-800 hover:bg-slate-800 transition-colors">
+                            <div className="w-12 h-12 bg-orange-500/20 rounded-xl flex items-center justify-center mb-4 text-orange-400">
+                                <Globe className="w-6 h-6" />
+                            </div>
+                            <h3 className="text-xl font-bold text-white mb-2">Ocean Views</h3>
+                            <p className="text-slate-400">
+                                React 19 + Vite + Tailwind v4. The most beautiful frontend stack in the archipelago.
+                            </p>
+                        </div>
+
+                        {/* Backend */}
+                        <div className="md:col-span-1 p-8 rounded-3xl bg-slate-900/50 border border-slate-800 hover:bg-slate-800 transition-colors">
+                            <div className="w-12 h-12 bg-yellow-500/20 rounded-xl flex items-center justify-center mb-4 text-yellow-400">
+                                <Server className="w-6 h-6" />
+                            </div>
+                            <h3 className="text-xl font-bold text-white mb-2">The Tiki Bar</h3>
+                            <p className="text-slate-400">
+                                Hono API. Lightweight, edge-ready, and refreshing. Served cold.
+                            </p>
+                        </div>
+
+                        {/* Deploy */}
+                        <div className="md:col-span-1 p-8 rounded-3xl bg-slate-900/50 border border-slate-800 hover:bg-slate-800 transition-colors">
+                            <div className="w-12 h-12 bg-cyan-500/20 rounded-xl flex items-center justify-center mb-4 text-cyan-400">
+                                <Github className="w-6 h-6" />
+                            </div>
+                            <h3 className="text-xl font-bold text-white mb-2">Sail Away</h3>
+                            <p className="text-slate-400">
+                                Zero lock-in. Deploy to Railway, Fly.io, or Vercel with ease.
+                            </p>
+                        </div>
                     </div>
                 </div>
             </section>

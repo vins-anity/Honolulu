@@ -1,4 +1,4 @@
-import { Terminal, CheckCircle, Zap } from "lucide-react";
+import { Terminal, CheckCircle, Zap, Database } from "lucide-react";
 import { Link } from "react-router-dom";
 import { CodeBlock } from "../../components/CodeBlock";
 
@@ -97,28 +97,53 @@ bun run dev`}
             {/* Database Setup */}
             <section className="space-y-4">
                 <h2 className="text-2xl font-bold text-white">Database Setup</h2>
-                <p className="text-slate-400">If you selected PostgreSQL or Supabase:</p>
+                <div className="bg-slate-900/50 border border-slate-800 rounded-2xl p-6 relative overflow-hidden group">
+                    <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-purple-500/5 group-hover:from-blue-500/10 group-hover:to-purple-500/10 transition-colors" />
 
-                <div className="space-y-3">
-                    <div className="flex items-start gap-3">
-                        <CheckCircle className="w-5 h-5 text-green-400 mt-0.5" />
-                        <div>
-                            <p className="text-white font-medium">Set your connection string</p>
-                            <p className="text-slate-400 text-sm">Edit <code className="text-rose-400">.env</code> and add your <code>DATABASE_URL</code></p>
+                    <div className="relative z-10 space-y-6">
+                        <div className="flex items-center gap-3 mb-4">
+                            <Database className="w-6 h-6 text-blue-400" />
+                            <h3 className="text-xl font-bold text-white">Hydrate Your Data</h3>
                         </div>
-                    </div>
-                    <div className="flex items-start gap-3">
-                        <CheckCircle className="w-5 h-5 text-green-400 mt-0.5" />
-                        <div>
-                            <p className="text-white font-medium">Push schema to database</p>
-                            <CodeBlock code="bun run db:push" language="bash" />
-                        </div>
-                    </div>
-                    <div className="flex items-start gap-3">
-                        <CheckCircle className="w-5 h-5 text-green-400 mt-0.5" />
-                        <div>
-                            <p className="text-white font-medium">Explore with Drizzle Studio</p>
-                            <CodeBlock code="bun run db:studio" language="bash" />
+
+                        <div className="grid md:grid-cols-2 gap-6">
+                            <div className="space-y-4">
+                                <div className="flex gap-3">
+                                    <span className="flex-shrink-0 w-6 h-6 bg-blue-500/20 text-blue-400 rounded-full flex items-center justify-center font-bold text-xs">1</span>
+                                    <div>
+                                        <p className="text-white font-medium mb-1">Connect Source</p>
+                                        <p className="text-slate-400 text-sm">
+                                            Update <code className="text-rose-400">.env</code> with your <code className="text-blue-300">DATABASE_URL</code>.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div className="flex gap-3">
+                                    <span className="flex-shrink-0 w-6 h-6 bg-purple-500/20 text-purple-400 rounded-full flex items-center justify-center font-bold text-xs">2</span>
+                                    <div>
+                                        <p className="text-white font-medium mb-1">Push Schema</p>
+                                        <p className="text-slate-400 text-sm">
+                                            Sync your Drizzle schema to the database.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="bg-black/50 rounded-xl p-4 font-mono text-sm border border-slate-800 shadow-xl">
+                                <div className="flex gap-2 text-slate-500 mb-3">
+                                    <div className="w-2.5 h-2.5 rounded-full bg-red-500/20" />
+                                    <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/20" />
+                                    <div className="w-2.5 h-2.5 rounded-full bg-green-500/20" />
+                                </div>
+                                <div className="space-y-2">
+                                    <p className="text-slate-300">
+                                        <span className="text-pink-500">$</span> bun run db:push
+                                    </p>
+                                    <p className="text-slate-300">
+                                        <span className="text-pink-500">$</span> bun run db:studio
+                                    </p>
+                                    <p className="text-slate-500 italic"># Opens Drizzle Studio UI ✨</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
