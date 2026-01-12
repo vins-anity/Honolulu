@@ -23,7 +23,7 @@
 		"format": "biome check --write .",
 		"type-check": "turbo type-check",
 		"test": "vitest run",
-		"postinstall": "turbo build --filter=shared --filter=api",
+		"postinstall": "[ -n \"$CI\" ] && echo 'Skipping postinstall in CI' || turbo build --filter=shared --filter=api",
 		"prepare": "husky"
 	},
 	"lint-staged": {
