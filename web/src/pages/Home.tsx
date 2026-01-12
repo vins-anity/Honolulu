@@ -109,7 +109,7 @@ export function Home() {
 
                         <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4">
                             <Link
-                                to="/docs/installation"
+                                to="/docs/get-started"
                                 className="px-8 py-4 bg-rose-500 hover:bg-rose-600 text-white rounded-xl font-bold transition-all active:scale-95 flex items-center gap-2 text-lg shadow-lg shadow-rose-500/20"
                             >
                                 <span>Catch the wave</span>
