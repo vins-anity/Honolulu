@@ -1,7 +1,5 @@
-// @ts-nocheck
 import { Hono } from "hono";
-import { logger } from "hono-pino";
-import { pinoLogger } from "hono-pino";
+import { logger } from "hono/logger";
 import { vValidator } from "@hono/valibot-validator";
 import { HelloWorldSchema } from "shared";
 import { db } from "./db";
@@ -9,13 +7,8 @@ import { posts } from "./db/schema";
 
 const app = new Hono();
 
-// @ts-ignore
-app.use(
-  "*",
-  logger({
-    pino: pinoLogger(),
-  }) as any,
-);
+// Simple built-in logger (no pino issues)
+app.use("*", logger());
 
 app.get("/", (c) => {
   return c.json({ message: "Hello Hono!" });
@@ -30,7 +23,6 @@ app.post("/hello", vValidator("json", HelloWorldSchema), (c) => {
 
 app.get("/posts", async (c) => {
   try {
-    // Just a check to see if DB helper works, might fail if no DB URL
     const allPosts = await db.select().from(posts);
     return c.json(allPosts);
   } catch (e) {
