@@ -1,0 +1,17 @@
+{
+    "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+    "extends": [
+        "config:best-practices"
+    ],
+    "packageRules": [
+        {
+            "matchPackagePatterns": [
+                "*"
+            ],
+            "groupName": "all dependencies"
+        }
+    ],
+    "lockFileMaintenance": {
+        "enabled": true
+    }
+}

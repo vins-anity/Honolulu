@@ -1,0 +1,21 @@
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 10
+    groups:
+      production-dependencies:
+        patterns:
+          - "*"
+        exclude-patterns:
+          - "@types/*"
+      dev-dependencies:
+        patterns:
+          - "@types/*"
+          - "*eslint*"
+          - "*prettier*"
+          - "*biome*"
+    commit-message:
+      prefix: "chore(deps):"
