@@ -1,54 +1,52 @@
 # Honolulu - Gemini AI Assistant Rules
 
 ## Project Context
-Honolulu is a turbocharged monorepo starter built with **Bun**, **Hono**, **React**, and **modern web technologies**. It uses **Turborepo** for workspace management.
+Honolulu is a production-ready monorepo starter built with **Bun**, **Hono**, **React**, and modern web technologies.
 
 ## Tech Stack & Core Libraries
-- **Runtime**: Bun (v1.2+)
+- **Runtime**: Bun (v1.2+) - *Use exclusively*
 - **Backend Framework**: Hono (v4+)
 - **Frontend Framework**: React (v19) + Vite (v6) + SWC
-- **Database ORM**: Drizzle ORM (v0.39+) + PostgreSQL
+- **Database**: Drizzle ORM + postgres.js (Supabase compatible)
 - **Validation**: Valibot (v1.0+) - *Do NOT use Zod*
 - **Styling**: Tailwind CSS v4
 - **State Management**: Zustand (Client) + TanStack Query (Server)
+- **CLI**: Ink (for `create-honolulu` package)
 - **Linting/Formatting**: Biome - *Do NOT use ESLint/Prettier*
 - **Testing**: Vitest
 
 ## Project Structure
-- `api/`: Hono backend. Entry: `src/index.ts`. Routes: `src/routes/`. DB: `src/db/`.
-- `web/`: React frontend. Entry: `src/main.tsx`. Pages: `src/pages/`.
-- `shared/`: Shared types & Valibot schemas. Entry: `src/index.ts`.
+- `apps/api/`: Hono backend. Entry: `src/index.ts`. Routes: `src/routes/`.
+- `apps/web/`: React frontend. Entry: `src/main.tsx`. Pages: `src/pages/`.
+- `packages/shared/`: Shared types & Valibot schemas.
 - `packages/create-honolulu/`: CLI scaffolding tool.
 
 ## Coding Conventions
 - **Runtime**: Always use `bun` commands (`bun run`, `bun install`, `bunx`).
-- **Imports**: Use ESM syntax (`import`/`export`). Use path aliases (`@/`) where configured.
-- **Types**: Use TypeScript strict mode. Avoid `any`. Import shared types from `@bhvr/shared`.
-- **Validation**: Use **Valibot** for all schema validation (API requests, shared types).
-- **Routing**: Use `app.route()` in Hono for modularity. Preferred inline handlers for type inference unless complex.
+- **Imports**: Use ESM syntax. Use path aliases (`@/`) where configured.
+- **Types**: Use TypeScript strict mode. Avoid `any`. Import shared types from `shared`.
+- **Validation**:
+  - API: Use `@hono/valibot-validator` with Valibot schemas.
+  - Shared: Define schemas in `packages/shared` for e2e type safety.
+- **Routing**: Use `app.route()` in Hono for modularity.
 - **Styling**: Use Tailwind CSS utility classes.
-- **Docs**: Keep `CLAUDE.md` and `GEMINI.md` updated if conventions change.
+- **Architecture**:
+  - Routes → Services → Database (drizzle)
+  - Keep routes thin, logic in services.
 
 ## Development Workflow
 - **Start Dev**: `bun run dev` (starts api, web, and shared watchers)
 - **Build**: `bun run build`
-- **Lint**: `bun run lint`
-- **Test**: `bun run test`
-
-## CLI specific (`create-honolulu`)
-- Located in `packages/create-honolulu`.
-- Uses `@clack/prompts` for UI.
-- Template files are in `template/`. Files requiring rename (like `.gitignore` or `package.json`) might need special handling in `copy.ts`.
-- **Publishing**: `npm publish --access public` (requires 2FA).
-
-## Critical Implementation Details
-1. **Validation**: API routes usually validate input using `@hono/valibot-validator`.
-2. **Database**: Drizzle schemas defined in `api/src/db/schema.ts`. Migrations managed via `drizzle-kit`.
-3. **Env Vars**: Defined in `.env`. Example in `.env.example`.
-4. **Monorepo**: Internal packages referenced via `workspace:*`.
+- **Lint**: `bun run lint` (Biome)
+- **Test**: `bun run test` (Vitest)
+- **Database**:
+  - `bun run db:generate` (Generate migrations)
+  - `bun run db:migrate` (Run migrations)
+  - `bun run db:push` (Push schema in dev)
+  - `bun run db:studio` (Open GUI)
 
 ## Common Mistakes to Avoid
 - Using `npm` or `node` instead of `bun`.
 - Importing from `zod` instead of `valibot`.
 - Configuring `eslint` (we use `biome`).
-- Hardcoding `localhost` (use env vars).
+- Hardcoding `localhost` URLs (use env vars).

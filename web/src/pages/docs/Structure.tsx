@@ -1,84 +1,114 @@
-import { Link } from "react-router-dom";
-import { ArrowRight, Folder, FileCode, AppWindow } from "lucide-react";
+import { Layers, Database, Globe, Server, ArrowDown } from "lucide-react";
 
 export function Structure() {
     return (
-        <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+        <div className="space-y-12">
             <div>
-                <h1 className="text-4xl font-extrabold text-white mb-4 tracking-tight">
-                    Project Structure
-                </h1>
-                <p className="text-lg text-slate-400 leading-relaxed max-w-3xl">
-                    Honolulu is a monorepo managed by Bun Workspaces. It's designed to separate concerns while keeping code co-located where it matters.
+                <h1 className="text-4xl font-extrabold tracking-tight text-white mb-4">Architecture</h1>
+                <p className="text-lg text-slate-400 leading-relaxed">
+                    Honolulu follows a strict <strong>Layered Architecture</strong> to ensure scalability,
+                    testability, and separation of concerns.
                 </p>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-8">
-                <div>
-                    <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
-                        <Folder className="w-5 h-5 text-rose-400" />
-                        Directory Layout
-                    </h3>
-                    <div className="font-mono text-sm bg-slate-900 border border-slate-700/50 rounded-xl p-4 space-y-3">
-                        <div className="flex items-center gap-2 text-slate-300">
-                            <Folder className="w-4 h-4 text-slate-500" />
-                            <span>api/</span>
-                            <span className="text-slate-500 text-xs ml-auto">Backend API (Hono)</span>
+            {/* Diagram */}
+            <div className="flex flex-col items-center p-8 bg-slate-900/50 border border-slate-800 rounded-2xl">
+                <div className="flex flex-col items-center gap-4 w-full max-w-sm">
+                    {/* Routes */}
+                    <div className="w-full p-4 bg-slate-800 rounded-xl border border-slate-700 flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                            <Globe className="w-5 h-5 text-teal-400" />
+                            <span className="font-bold text-white">Routes</span>
                         </div>
-                        <div className="flex items-center gap-2 text-slate-300">
-                            <Folder className="w-4 h-4 text-slate-500" />
-                            <span>web/</span>
-                            <span className="text-slate-500 text-xs ml-auto">Frontend (React + Vite)</span>
-                        </div>
-                        <div className="flex items-center gap-2 text-slate-300">
-                            <Folder className="w-4 h-4 text-slate-500" />
-                            <span>shared/</span>
-                            <span className="text-slate-500 text-xs ml-auto">Shared types & schemas</span>
-                        </div>
-                        <div className="flex items-center gap-2 text-slate-300">
-                            <FileCode className="w-4 h-4 text-amber-500" />
-                            <span>package.json</span>
-                            <span className="text-slate-500 text-xs ml-auto">Root config</span>
-                        </div>
-                        <div className="flex items-center gap-2 text-slate-300">
-                            <FileCode className="w-4 h-4 text-sky-500" />
-                            <span>turbo.json</span>
-                            <span className="text-slate-500 text-xs ml-auto">Turborepo pipeline</span>
-                        </div>
+                        <span className="text-xs text-slate-400">HTTP & Validation</span>
                     </div>
-                </div>
 
-                <div className="space-y-6">
-                    <div className="bg-slate-800/50 border border-white/5 rounded-xl p-5">
-                        <h4 className="font-bold text-white mb-2 flex items-center gap-2">
-                            <AppWindow className="w-4 h-4 text-rose-400" />
-                            Web (`/web`)
-                        </h4>
-                        <p className="text-sm text-slate-400 leading-relaxed">
-                            Standard Vite application. Not much magic here. We use Tailwind v4 for styling and Zustand for state.
-                        </p>
+                    <ArrowDown className="w-5 h-5 text-slate-600" />
+
+                    {/* Services */}
+                    <div className="w-full p-4 bg-slate-800 rounded-xl border border-slate-700 flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                            <Server className="w-5 h-5 text-purple-400" />
+                            <span className="font-bold text-white">Services</span>
+                        </div>
+                        <span className="text-xs text-slate-400">Business Logic</span>
                     </div>
-                    <div className="bg-slate-800/50 border border-white/5 rounded-xl p-5">
-                        <h4 className="font-bold text-white mb-2 flex items-center gap-2">
-                            <Terminal className="w-4 h-4 text-purple-400" />
-                            API (`/api`)
-                        </h4>
-                        <p className="text-sm text-slate-400 leading-relaxed">
-                            Hono server providing REST endpoints. It imports validation schemas directly from `shared` to ensure request validity.
-                        </p>
+
+                    <ArrowDown className="w-5 h-5 text-slate-600" />
+
+                    {/* Database */}
+                    <div className="w-full p-4 bg-slate-800 rounded-xl border border-slate-700 flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                            <Database className="w-5 h-5 text-amber-400" />
+                            <span className="font-bold text-white">Database</span>
+                        </div>
+                        <span className="text-xs text-slate-400">Drizzle ORM</span>
                     </div>
                 </div>
             </div>
 
-            <div className="flex justify-end pt-8">
-                <Link
-                    to="/docs/tech-stack"
-                    className="group flex items-center gap-2 px-6 py-3 bg-white text-slate-900 rounded-lg font-bold hover:bg-slate-200 transition-colors"
-                >
-                    Next: Tech Stack
-                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </Link>
+            {/* Layers Detail */}
+            <div className="grid gap-6">
+                <section className="space-y-4">
+                    <h2 className="text-2xl font-bold text-white flex items-center gap-3">
+                        <Globe className="w-6 h-6 text-teal-400" />
+                        1. Routes Layer
+                    </h2>
+                    <p className="text-slate-400 leading-relaxed">
+                        <strong>Responsibility:</strong> Handle HTTP requests, validate inputs, and format responses.
+                        <br />
+                        <strong>Rule:</strong> No business logic here. Only calls to Services.
+                    </p>
+                    <pre className="bg-slate-950 p-4 rounded-xl text-sm text-slate-300 overflow-x-auto">
+                        {`app.post("/todos", vValidator("json", schema), async (c) => {
+  const data = c.req.valid("json");
+  const todo = await todosService.create(data); // Call Service
+  return c.json(todo);
+});`}
+                    </pre>
+                </section>
+
+                <section className="space-y-4">
+                    <h2 className="text-2xl font-bold text-white flex items-center gap-3">
+                        <Server className="w-6 h-6 text-purple-400" />
+                        2. Service Layer
+                    </h2>
+                    <p className="text-slate-400 leading-relaxed">
+                        <strong>Responsibility:</strong> Pure business logic.
+                        <br />
+                        <strong>Rule:</strong> No HTTP concerns (Context, Response). Just standard functions.
+                    </p>
+                    <pre className="bg-slate-950 p-4 rounded-xl text-sm text-slate-300 overflow-x-auto">
+                        {`export const todosService = {
+  async create(data: CreateTodo) {
+    // Logic goes here
+    return db.insert(todos).values(data).returning();
+  }
+}`}
+                    </pre>
+                </section>
             </div>
+
+            <section className="border-t border-slate-800 pt-8">
+                <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                    <Layers className="w-5 h-5 text-blue-400" />
+                    Monorepo Structure
+                </h2>
+                <div className="grid gap-4 text-sm text-slate-400 font-mono">
+                    <div className="flex gap-4 p-3 bg-slate-900/50 rounded-lg border border-slate-800">
+                        <span className="text-rose-400 font-bold w-32 shrink-0">apps/api</span>
+                        <span>Hono backend server</span>
+                    </div>
+                    <div className="flex gap-4 p-3 bg-slate-900/50 rounded-lg border border-slate-800">
+                        <span className="text-teal-400 font-bold w-32 shrink-0">apps/web</span>
+                        <span>React + Vite frontend</span>
+                    </div>
+                    <div className="flex gap-4 p-3 bg-slate-900/50 rounded-lg border border-slate-800">
+                        <span className="text-amber-400 font-bold w-32 shrink-0">packages/shared</span>
+                        <span>Shared types, schemas, and utils</span>
+                    </div>
+                </div>
+            </section>
         </div>
     );
 }

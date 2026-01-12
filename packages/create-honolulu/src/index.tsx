@@ -4,7 +4,8 @@ import { render, Box } from "ink";
 import path from "node:path";
 import { Header } from "./components/Header.js";
 import { ProjectNameInput } from "./components/ProjectNameInput.js";
-import { FeatureSelect } from "./components/FeatureSelect.js";
+import { DatabaseSelect, type DatabaseOption } from "./components/DatabaseSelect.js";
+import { AuthSelect, type AuthOption } from "./components/AuthSelect.js";
 import {
     InstallProgress,
     type InstallStatus,
@@ -18,6 +19,8 @@ import { installDependencies } from "./utils/install.js";
 
 type AppState =
     | "input-name"
+    | "select-database"
+    | "select-auth"
     | "select-features"
     | "installing"
     | "complete"
@@ -29,17 +32,16 @@ interface AppProps {
 
 const App: React.FC<AppProps> = ({ initialProjectName }) => {
     const [state, setState] = useState<AppState>(
-        initialProjectName ? "select-features" : "input-name",
+        initialProjectName ? "select-database" : "input-name",
     );
     const [projectName, setProjectName] = useState(
         initialProjectName || "my-honolulu-app",
     );
     const [inputError, setInputError] = useState<string>();
-    const [features, setFeatures] = useState({
-        supabase: true,
-        git: true,
-        install: true,
-    });
+    const [database, setDatabase] = useState<DatabaseOption>("postgresql");
+    const [auth, setAuth] = useState<AuthOption>("none");
+    const [git, setGit] = useState(true);
+    const [install, setInstall] = useState(true);
     const [installStatus, setInstallStatus] = useState<InstallStatus>({
         scaffold: "pending",
         git: "pending",
@@ -50,10 +52,7 @@ const App: React.FC<AppProps> = ({ initialProjectName }) => {
 
     const validateProjectName = (name: string): string | undefined => {
         if (!name) return "Please enter a path.";
-        if (
-            name[0] !== "." &&
-            !/^[a-z0-9-]+$/.test(name)
-        ) {
+        if (name[0] !== "." && !/^[a-z0-9-]+$/.test(name)) {
             return "Name to only contain lowercase letters, numbers, and hyphens";
         }
         return undefined;
@@ -65,16 +64,29 @@ const App: React.FC<AppProps> = ({ initialProjectName }) => {
             setInputError(error);
         } else {
             setInputError(undefined);
-            setState("select-features");
+            setState("select-database");
         }
     };
 
-    const handleFeaturesComplete = (selections: {
-        supabase: boolean;
-        git: boolean;
-        install: boolean;
-    }) => {
-        setFeatures(selections);
+    const handleDatabaseSelect = (db: DatabaseOption) => {
+        setDatabase(db);
+        // If Supabase, skip auth selection (Supabase has built-in auth)
+        if (db === "supabase") {
+            setAuth("supabase");
+            setState("select-features");
+        } else {
+            setState("select-auth");
+        }
+    };
+
+    const handleAuthSelect = (authOption: AuthOption) => {
+        setAuth(authOption);
+        setState("select-features");
+    };
+
+    const handleFeaturesComplete = (selections: { git: boolean; install: boolean }) => {
+        setGit(selections.git);
+        setInstall(selections.install);
         setState("installing");
     };
 
@@ -88,11 +100,11 @@ const App: React.FC<AppProps> = ({ initialProjectName }) => {
                 // Step 1: Scaffold
                 setInstallStatus((prev) => ({ ...prev, scaffold: "running" }));
                 setCurrentStep("scaffold");
-                await copyTemplate(targetDir, features.supabase);
+                await copyTemplate(targetDir, { database, auth });
                 setInstallStatus((prev) => ({ ...prev, scaffold: "done" }));
 
                 // Step 2: Git
-                if (features.git) {
+                if (git) {
                     setInstallStatus((prev) => ({ ...prev, git: "running" }));
                     setCurrentStep("git");
                     try {
@@ -106,7 +118,7 @@ const App: React.FC<AppProps> = ({ initialProjectName }) => {
                 }
 
                 // Step 3: Install
-                if (features.install) {
+                if (install) {
                     setInstallStatus((prev) => ({ ...prev, install: "running" }));
                     setCurrentStep("install");
                     try {
@@ -128,69 +140,73 @@ const App: React.FC<AppProps> = ({ initialProjectName }) => {
         };
 
         runInstallation();
-    }, [state, projectName, features]);
+    }, [state, projectName, database, auth, git, install]);
 
     return (
-        <Box flexDirection= "column" padding = { 1} >
+        <Box flexDirection="column" padding={1}>
             <Header version="2.0.0" />
 
-                { state === "input-name" && (
-                    <ProjectNameInput
-					value={ projectName }
-    onChange = { setProjectName }
-    onSubmit = { handleProjectNameSubmit }
-    error = { inputError }
-        />
-			)}
+            {state === "input-name" && (
+                <ProjectNameInput
+                    value={projectName}
+                    onChange={setProjectName}
+                    onSubmit={handleProjectNameSubmit}
+                    error={inputError}
+                />
+            )}
 
-{
-    state === "select-features" && (
-        <FeatureSelect onComplete={ handleFeaturesComplete } />
-			)
-}
+            {state === "select-database" && (
+                <DatabaseSelect onSelect={handleDatabaseSelect} />
+            )}
 
-{
-    (state === "installing" || state === "complete") && (
-        <InstallProgress status={ installStatus } currentStep = { currentStep } />
-			)
-}
+            {state === "select-auth" && (
+                <AuthSelect database={database} onSelect={handleAuthSelect} />
+            )}
 
-{
-    state === "complete" && (
-        <>
-        <NextSteps
-						projectName={ projectName }
-    shouldInstall = { features.install }
-    hasSupabase = { features.supabase }
-        />
-        <Outro />
-        </>
-			)
-}
+            {state === "select-features" && (
+                <FeatureSelect onComplete={handleFeaturesComplete} />
+            )}
 
-{
-    state === "error" && error && (
-        <Box marginTop={ 1 }>
-            <Box borderStyle="round" borderColor = "red" padding = { 1} >
-                <Box flexDirection="column" >
-                    <Box>
-                    <Box marginRight={ 1 }>✖</Box>
-                        < Box > Error: { error } </Box>
+            {(state === "installing" || state === "complete") && (
+                <InstallProgress status={installStatus} currentStep={currentStep} />
+            )}
+
+            {state === "complete" && (
+                <>
+                    <NextSteps
+                        projectName={projectName}
+                        shouldInstall={install}
+                        database={database}
+                        auth={auth}
+                    />
+                    <Outro />
+                </>
+            )}
+
+            {state === "error" && error && (
+                <Box marginTop={1}>
+                    <Box borderStyle="round" borderColor="red" padding={1}>
+                        <Box flexDirection="column">
+                            <Box>
+                                <Box marginRight={1}>✖</Box>
+                                <Box>Error: {error}</Box>
                             </Box>
-                            </Box>
-                            </Box>
-                            </Box>
-			)
-}
-</Box>
-	);
+                        </Box>
+                    </Box>
+                </Box>
+            )}
+        </Box>
+    );
 };
+
+// Update FeatureSelect to only ask for Git and Install (removing Supabase option)
+import { FeatureSelect } from "./components/FeatureSelect.js";
 
 async function main() {
     const args = process.argv.slice(2);
     const projectName = args[0];
 
-    render(<App initialProjectName={ projectName } />);
+    render(<App initialProjectName={projectName} />);
 }
 
 main().catch((error) => {

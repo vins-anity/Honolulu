@@ -1,5 +1,5 @@
 import { Link, Outlet, useLocation } from "react-router-dom";
-import { Book, Cpu, Layers, Rocket, Github, Menu, X } from "lucide-react";
+import { Book, Cpu, Layers, Rocket, Github, Menu, X, Cloud } from "lucide-react";
 import { useState } from "react";
 import clsx from "clsx";
 
@@ -9,6 +9,7 @@ const sidebarLinks = [
         links: [
             { title: "Introduction", href: "/docs/introduction", icon: Book },
             { title: "Installation", href: "/docs/installation", icon: Rocket },
+            { title: "Deployment", href: "/docs/deployment", icon: Cloud },
         ],
     },
     {

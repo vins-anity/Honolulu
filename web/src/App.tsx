@@ -5,6 +5,7 @@ import { Introduction } from "./pages/docs/Introduction";
 import { Installation } from "./pages/docs/Installation";
 import { Structure } from "./pages/docs/Structure";
 import { TechStack } from "./pages/docs/TechStack";
+import { Deployment } from "./pages/docs/Deployment";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="installation" element={<Installation />} />
           <Route path="structure" element={<Structure />} />
           <Route path="tech-stack" element={<TechStack />} />
+          <Route path="deployment" element={<Deployment />} />
           <Route path="*" element={<div className="p-8 text-slate-400">Page not found</div>} />
         </Route>
       </Routes>

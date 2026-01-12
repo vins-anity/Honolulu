@@ -1,8 +1,9 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-
 import { existsSync } from "node:fs";
+import type { DatabaseOption } from "../components/DatabaseSelect.js";
+import type { AuthOption } from "../components/AuthSelect.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -18,10 +19,17 @@ const getTemplateDir = () => {
 
 const TEMPLATE_DIR = getTemplateDir();
 
+interface TemplateOptions {
+    database: DatabaseOption;
+    auth: AuthOption;
+}
+
 export async function copyTemplate(
     targetDir: string,
-    useSupabase: boolean
+    options: TemplateOptions,
 ): Promise<void> {
+    const { database, auth } = options;
+
     // Create target directory
     await fs.mkdir(targetDir, { recursive: true });
 
@@ -33,9 +41,7 @@ export async function copyTemplate(
         "turbo.json",
         "biome.json",
         "vitest.config.ts",
-        ".env.example",
         "README.md",
-        "CONTRIBUTING.md",
     ];
 
     for (const file of rootFiles) {
@@ -48,6 +54,9 @@ export async function copyTemplate(
         }
     }
 
+    //Create .env.example with appropriate database configuration
+    await createEnvFile(targetDir, database, auth);
+
     // Create apps and packages directories
     await fs.mkdir(path.join(targetDir, "apps"), { recursive: true });
     await fs.mkdir(path.join(targetDir, "packages"), { recursive: true });
@@ -55,48 +64,70 @@ export async function copyTemplate(
     // Copy apps/api
     await copyDir(
         path.join(TEMPLATE_DIR, "apps/api"),
-        path.join(targetDir, "apps/api")
+        path.join(targetDir, "apps/api"),
     );
 
     // Copy apps/web
     await copyDir(
         path.join(TEMPLATE_DIR, "apps/web"),
-        path.join(targetDir, "apps/web")
+        path.join(targetDir, "apps/web"),
     );
 
     // Copy packages/shared
     await copyDir(
         path.join(TEMPLATE_DIR, "packages/shared"),
-        path.join(targetDir, "packages/shared")
+        path.join(targetDir, "packages/shared"),
     );
 
-    // If no Supabase/DB support, clean up API db files
-    if (!useSupabase) {
-        // Removing db-related files from API
-        const dbDir = path.join(targetDir, "apps/api/src/db");
-        try {
-            await fs.rm(dbDir, { recursive: true, force: true });
-        } catch (error) {
-            // Directory might not exist
-        }
+    // TODO: Add conditional auth files based on `auth` option
+    // TODO: Update database connection files based on `database` option
+}
 
-        // Note: We might also want to clean up package.json dependencies here in a real scenario
-        // but keeping it simple for now as requested (just structure & prompts)
-    }
-
-    // Update .env.example based on database choice
+async function createEnvFile(
+    targetDir: string,
+    database: DatabaseOption,
+    auth: AuthOption,
+): Promise<void> {
     const envPath = path.join(targetDir, ".env.example");
-    let envContent = "";
+    let envContent = "# Environment Variables\n\n";
 
-    if (useSupabase) {
-        envContent = `# Supabase Configuration
+    // Database configuration
+    if (database === "supabase") {
+        envContent += `# Supabase Configuration
 SUPABASE_URL=your-project-url.supabase.co
 SUPABASE_ANON_KEY=your-anon-key
 DATABASE_URL=postgresql://postgres:[password]@db.[project-ref].supabase.co:5432/postgres
 `;
-    } else {
-        envContent = `# No database selected
-# Add your environment variables here
+    } else if (database === "postgresql") {
+        envContent += `# PostgreSQL Configuration
+DATABASE_URL=postgresql://user:password@localhost:5432/honolulu
+`;
+    } else if (database === "mysql") {
+        envContent += `# MySQL Configuration
+DATABASE_URL=mysql://user:password@localhost:3306/honolulu
+`;
+    } else if (database === "sqlite") {
+        envContent += `# SQLite Configuration (file-based, no URL needed)
+# DATABASE_PATH=./local.db
+`;
+    }
+
+    // Authentication configuration
+    envContent += "\n";
+    if (auth === "supabase" && database !== "supabase") {
+        envContent += `# Supabase Auth (standalone)
+SUPABASE_URL=your-project-url.supabase.co
+SUPABASE_ANON_KEY=your-anon-key
+`;
+    } else if (auth === "clerk") {
+        envContent += `# Clerk Authentication
+CLERK_SECRET_KEY=your-clerk-secret-key
+CLERK_PUBLISHABLE_KEY=your-clerk-publishable-key
+`;
+    } else if (auth === "authjs") {
+        envContent += `# Auth.js Configuration
+NEXTAUTH_SECRET=your-secret-here
+NEXTAUTH_URL=http://localhost:3000
 `;
     }
 
