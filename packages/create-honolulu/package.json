@@ -1,6 +1,6 @@
 {
     "name": "create-honolulu",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "description": "Create a new Honolulu project with interactive prompts",
     "type": "module",
     "bin": {
@@ -11,7 +11,7 @@
         "template"
     ],
     "scripts": {
-        "build": "bun build src/index.tsx --outdir dist --target node && echo '#!/usr/bin/env node' | cat - dist/index.js > dist/index.tmp.js && mv dist/index.tmp.js dist/index.js && chmod +x dist/index.js",
+        "build": "bun build src/index.tsx --outdir dist --target node && chmod +x dist/index.js",
         "dev": "bun run src/index.tsx"
     },
     "dependencies": {
