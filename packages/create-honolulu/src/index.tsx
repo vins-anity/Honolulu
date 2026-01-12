@@ -172,7 +172,7 @@ const App: React.FC<AppProps> = ({ initialProjectName }) => {
 
     return (
         <Box flexDirection="column" padding={1}>
-            <Header version="2.0.0" />
+            <Header version="1.0.8" />
 
             {state === "input-name" && (
                 <ProjectNameInput
