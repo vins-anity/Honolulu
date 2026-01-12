@@ -1,10 +1,10 @@
 {
-	"name": "bhvr",
+	"name": "honolulu",
 	"version": "0.5.1",
 	"description": "A monorepo template built with Bun, Hono, Vite, and React",
 	"author": "Steve Simkins",
 	"license": "MIT",
-	"homepage": "https://github.com/stevedylandev/bhvr",
+	"homepage": "https://github.com/vins-anity/Honolulu",
 	"packageManager": "bun@1.2.4",
 	"workspaces": [
 		"./api",

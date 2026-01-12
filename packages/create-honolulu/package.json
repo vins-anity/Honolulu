@@ -40,14 +40,14 @@
         "cli"
     ],
     "author": "Steve Simkins",
-    "homepage": "https://github.com/stevedylandev/bhvr#readme",
+    "homepage": "https://github.com/vins-anity/Honolulu#readme",
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/stevedylandev/bhvr.git",
+        "url": "git+https://github.com/vins-anity/Honolulu.git",
         "directory": "packages/create-honolulu"
     },
     "bugs": {
-        "url": "https://github.com/stevedylandev/bhvr/issues"
+        "url": "https://github.com/vins-anity/Honolulu/issues"
     },
     "license": "MIT"
 }

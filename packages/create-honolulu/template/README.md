@@ -265,7 +265,7 @@ lsof -i :3000 | grep LISTEN | awk '{print $2}' | xargs kill -9
 ```
 
 ### Still stuck?
-1. Check the [GitHub Issues](https://github.com/stevedylandev/bhvr/issues)
+1. Check the [GitHub Issues](https://github.com/vins-anity/Honolulu/issues)
 2. Ask in Discussions
 3. Make sure you read this README 😉
 
