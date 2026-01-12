@@ -20,7 +20,10 @@ jobs:
           bun-version: latest
 
       - name: Install dependencies
-        run: bun install --frozen-lockfile
+        run: bun install --frozen-lockfile --ignore-scripts
+
+      - name: Build Shared Package
+        run: bun run build --filter=shared
 
       - name: Lint
         run: bun run lint
