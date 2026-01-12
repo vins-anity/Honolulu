@@ -1,5 +1,5 @@
-import { describe, it, expect } from "vitest";
 import { parse } from "valibot";
+import { describe, expect, it } from "vitest";
 import { HelloWorldSchema } from "./index";
 
 describe("Shared Schema", () => {

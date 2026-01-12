@@ -85,21 +85,28 @@ export function PackageWeb() {
                     filename="src/lib/api.ts"
                     language="typescript"
                     code={`const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
+import type { CreateTodo, Todo } from "shared";
 
-export async function fetchTodos() {
-    const res = await fetch(\`\${API_URL}/todos\`);
-    if (!res.ok) throw new Error("Failed to fetch");
-    return res.json();
-}
-
-export async function createTodo(data: { title: string }) {
-    const res = await fetch(\`\${API_URL}/todos\`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-    });
-    return res.json();
-}`}
+export const api = {
+    todos: {
+        list: async (): Promise<Todo[]> => {
+            const res = await fetch(\`\${API_URL}/todos\`);
+            if (!res.ok) throw new Error("Failed to fetch");
+            const { data } = await res.json();
+            return data;
+        },
+        create: async (todo: CreateTodo): Promise<Todo> => {
+            const res = await fetch(\`\${API_URL}/todos\`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(todo),
+            });
+            if (!res.ok) throw new Error("Failed to create");
+            const { data } = await res.json();
+            return data;
+        }
+    }
+};`}
                 />
             </section>
 
@@ -160,12 +167,12 @@ function TodoForm({ onSubmit }: { onSubmit: (data: CreateTodo) => void }) {
                     filename="hooks/useTodos.ts"
                     language="typescript"
                     code={`import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { fetchTodos, createTodo } from "../lib/api";
+import { api } from "../lib/api";
 
 export function useTodos() {
     return useQuery({
         queryKey: ["todos"],
-        queryFn: fetchTodos,
+        queryFn: api.todos.list,
     });
 }
 
@@ -173,7 +180,7 @@ export function useCreateTodo() {
     const queryClient = useQueryClient();
     
     return useMutation({
-        mutationFn: createTodo,
+        mutationFn: api.todos.create,
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ["todos"] });
         },

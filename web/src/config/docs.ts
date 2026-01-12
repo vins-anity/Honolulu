@@ -5,7 +5,7 @@ export type SidebarLink = {
 
 export type SidebarGroup = {
     title: string;
-    items: SidebarLink[];
+    items: (SidebarGroup | SidebarLink)[];
 };
 
 export type SidebarSection = {
@@ -15,53 +15,58 @@ export type SidebarSection = {
 
 export const sidebarLinks: SidebarSection[] = [
     {
-        title: "Overview",
-        items: [
-            { title: "Get Started", href: "/docs/get-started" },
-            { title: "Why Honolulu?", href: "/docs/why-honolulu" },
-            { title: "Project Structure", href: "/docs/structure" },
-        ],
-    },
-    {
-        title: "Guides",
-        items: [
-            { title: "Environment Variables", href: "/docs/guides/env" },
-            { title: "Database Patterns", href: "/docs/guides/database" },
-            { title: "Testing", href: "/docs/guides/testing" },
-            { title: "Authentication", href: "/docs/guides/auth" },
-            { title: "OpenAPI & Docs", href: "/docs/guides/openapi" },
-        ],
-    },
-    {
-        title: "Packages",
-        items: [
-            { title: "Web (Frontend)", href: "/docs/packages/web" },
-            { title: "API (Backend)", href: "/docs/packages/api" },
-            { title: "Shared (Schemas)", href: "/docs/packages/shared" },
-        ],
-    },
-    {
-        title: "Deployment",
+        title: "Documentation",
         items: [
             {
-                title: "Web",
+                title: "Getting Started",
                 items: [
-                    { title: "Vercel", href: "/docs/deployment/vercel" },
+                    { title: "Get Started", href: "/docs/get-started" },
+                    { title: "Why Honolulu?", href: "/docs/why-honolulu" },
+                    { title: "Project Structure", href: "/docs/structure" },
                 ]
             },
             {
-                title: "API",
+                title: "Guides",
                 items: [
-                    { title: "Railway", href: "/docs/deployment/railway" },
-                    { title: "Fly.io", href: "/docs/deployment/flyio" },
-                    { title: "Cloudflare Workers", href: "/docs/deployment/cf-workers" },
+                    { title: "Authentication", href: "/docs/guides/auth" },
+                    { title: "Database & Drizzle", href: "/docs/guides/database" },
+                    { title: "Environment Variables", href: "/docs/guides/env" },
+                    { title: "Testing", href: "/docs/guides/testing" },
+                    { title: "OpenAPI & Docs", href: "/docs/guides/openapi" },
                 ]
             },
             {
-                title: "Shared",
+                title: "Reference",
                 items: [
-                    { title: "Docker / VPS", href: "/docs/deployment/docker" },
+                    { title: "Web (Frontend)", href: "/docs/packages/web" },
+                    { title: "API (Backend)", href: "/docs/packages/api" },
+                    { title: "Shared (Schemas)", href: "/docs/packages/shared" },
                 ]
+            },
+            {
+                title: "Deployment",
+                items: [
+                    {
+                        title: "Web",
+                        items: [
+                            { title: "Vercel", href: "/docs/deployment/vercel" },
+                        ]
+                    },
+                    {
+                        title: "API",
+                        items: [
+                            { title: "Railway", href: "/docs/deployment/railway" },
+                            { title: "Fly.io", href: "/docs/deployment/flyio" },
+                            { title: "Cloudflare Workers", href: "/docs/deployment/cf-workers" },
+                        ]
+                    },
+                    {
+                        title: "Shared",
+                        items: [
+                            { title: "Docker / VPS", href: "/docs/deployment/docker" },
+                        ]
+                    },
+                ],
             },
         ],
     },

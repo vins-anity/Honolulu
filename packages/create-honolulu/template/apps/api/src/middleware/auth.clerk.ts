@@ -17,8 +17,8 @@
  * });
  */
 
-import type { Context, Next } from "hono";
 import { createClerkClient } from "@clerk/backend";
+import type { Context, Next } from "hono";
 
 // ============================================
 // Clerk Client Setup
@@ -77,10 +77,7 @@ export async function clerkAuthMiddleware(c: Context, next: Next) {
 
     try {
         // Verify the session token with Clerk
-        const session = await clerk.sessions.verifySession({
-            sessionId: token,
-            token: token,
-        });
+        const session = await clerk.sessions.verifySession(token, token);
 
         // Get user details
         const user = await clerk.users.getUser(session.userId);

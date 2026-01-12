@@ -69,6 +69,7 @@ if (!connectionString) {
  *
  * For Supabase, we use their connection string directly.
  * Pooling is handled by Supabase's built-in pgbouncer.
+ * @see https://supabase.com/docs/guides/database/drizzle
  */
 const client = postgres(connectionString || "", {
     // Connection pool settings

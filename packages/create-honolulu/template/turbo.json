@@ -3,9 +3,7 @@
     "ui": "tui",
     "tasks": {
         "build": {
-            "dependsOn": [
-                "^build"
-            ],
+            "dependsOn": ["^build"],
             "inputs": [
                 "src/**/*.ts",
                 "src/**/*.tsx",
@@ -13,43 +11,24 @@
                 "vite.config.ts",
                 "package.json"
             ],
-            "outputs": [
-                "dist/**",
-                ".tsbuildinfo"
-            ],
-            "env": [
-                "NODE_ENV"
-            ]
+            "outputs": ["dist/**", ".tsbuildinfo"],
+            "env": ["NODE_ENV"]
         },
         "dev": {
             "cache": false,
             "persistent": true
         },
         "lint": {
-            "inputs": [
-                "src/**/*.ts",
-                "src/**/*.tsx",
-                "biome.json"
-            ],
+            "inputs": ["src/**/*.ts", "src/**/*.tsx", "biome.json"],
             "outputs": []
         },
         "type-check": {
-            "dependsOn": [
-                "^build"
-            ],
-            "inputs": [
-                "src/**/*.ts",
-                "src/**/*.tsx",
-                "tsconfig.json"
-            ],
-            "outputs": [
-                ".tsbuildinfo"
-            ]
+            "dependsOn": ["^build"],
+            "inputs": ["src/**/*.ts", "src/**/*.tsx", "tsconfig.json"],
+            "outputs": [".tsbuildinfo"]
         },
         "test": {
-            "dependsOn": [
-                "^build"
-            ],
+            "dependsOn": ["^build"],
             "inputs": [
                 "src/**/*.ts",
                 "src/**/*.tsx",
@@ -57,21 +36,9 @@
                 "**/*.test.tsx",
                 "vitest.config.*"
             ],
-            "outputs": [
-                "coverage/**"
-            ]
+            "outputs": ["coverage/**"]
         }
     },
-    "globalDependencies": [
-        ".env",
-        ".env.local",
-        "turbo.json",
-        "bun.lock"
-    ],
-    "globalEnv": [
-        "NODE_ENV",
-        "CI",
-        "TURBO_TOKEN",
-        "TURBO_TEAM"
-    ]
+    "globalDependencies": [".env", ".env.local", "turbo.json", "bun.lock"],
+    "globalEnv": ["NODE_ENV", "CI", "TURBO_TOKEN", "TURBO_TEAM"]
 }

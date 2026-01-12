@@ -2,7 +2,7 @@ import type { Context, Next } from "hono";
 
 /**
  * Global Error Handler Middleware
- * 
+ *
  * Catches unhandled errors and returns consistent error responses.
  * In production, you might want to log to a service like Sentry.
  */
@@ -53,7 +53,7 @@ export async function errorHandler(c: Context, next: Next) {
 
 /**
  * Request Logger Middleware
- * 
+ *
  * Logs request details for debugging.
  * Uses Hono's built-in logger for basic logging.
  */
@@ -67,7 +67,7 @@ export async function requestLogger(c: Context, next: Next) {
 
 /**
  * CORS Headers Middleware
- * 
+ *
  * Adds CORS headers for development.
  * In production, configure this more restrictively.
  */
@@ -75,12 +75,6 @@ export async function corsHeaders(c: Context, next: Next) {
     await next();
 
     c.res.headers.set("Access-Control-Allow-Origin", "*");
-    c.res.headers.set(
-        "Access-Control-Allow-Methods",
-        "GET, POST, PUT, PATCH, DELETE, OPTIONS",
-    );
-    c.res.headers.set(
-        "Access-Control-Allow-Headers",
-        "Content-Type, Authorization",
-    );
+    c.res.headers.set("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH, DELETE, OPTIONS");
+    c.res.headers.set("Access-Control-Allow-Headers", "Content-Type, Authorization");
 }

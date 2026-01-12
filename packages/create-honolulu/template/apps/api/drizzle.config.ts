@@ -22,8 +22,7 @@ import { defineConfig } from "drizzle-kit";
  * Falls back to local PostgreSQL for development.
  */
 const databaseUrl =
-    process.env.DATABASE_URL ||
-    "postgresql://postgres:postgres@localhost:5432/honolulu";
+    process.env.DATABASE_URL || "postgresql://postgres:postgres@localhost:5432/honolulu";
 
 export default defineConfig({
     // Path to your schema file(s)

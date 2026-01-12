@@ -1,11 +1,11 @@
-import { Hono } from "hono";
 import { vValidator } from "@hono/valibot-validator";
-import { CreateTodoSchema, UpdateTodoSchema, TodoIdSchema } from "shared";
+import { Hono } from "hono";
+import { CreateTodoSchema, TodoIdSchema, UpdateTodoSchema } from "shared";
 import { todosService } from "../services/todos.service";
 
 /**
  * Todos Routes
- * 
+ *
  * RESTful CRUD endpoints with Valibot validation.
  * Routes are thin - they handle HTTP concerns and delegate to services.
  */

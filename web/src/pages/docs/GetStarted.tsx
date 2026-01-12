@@ -33,12 +33,13 @@ export function GetStarted() {
 
                     <div className="flex gap-4 items-start">
                         <span className="flex-shrink-0 w-8 h-8 bg-rose-500/20 text-rose-400 rounded-full flex items-center justify-center font-bold text-sm">2</span>
-                        <div className="flex-1">
-                            <h3 className="font-medium text-white mb-2">Follow the prompts</h3>
-                            <p className="text-slate-400 text-sm">
-                                Customize your stack: Select your Database, Authentication provider, Architecture, and Styling. OpenAPI is included by default!
-                            </p>
-                        </div>
+                        <h3 className="font-medium text-white mb-2">Follow the prompts</h3>
+                        <ul className="text-slate-400 text-sm list-disc list-inside space-y-1">
+                            <li><strong>Architecture:</strong> Opinionated (Monorepo) or Unopinionated (Single Package)</li>
+                            <li><strong>Styling:</strong> Tailwind CSS v4, Shadcn UI, or Classic CSS</li>
+                            <li><strong>Database:</strong> Postgres (via Drizzle) or SQLite</li>
+                            <li><strong>Authentication:</strong> Better Auth, Clerk, or Supabase</li>
+                        </ul>
                     </div>
 
                     <div className="flex gap-4 items-start">

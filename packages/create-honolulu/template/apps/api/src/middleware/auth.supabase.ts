@@ -15,8 +15,8 @@
  * app.use("/api/*", authMiddleware);
  */
 
-import type { Context, Next } from "hono";
 import { createClient } from "@supabase/supabase-js";
+import type { Context, Next } from "hono";
 
 // ============================================
 // Supabase Client Setup
@@ -28,10 +28,7 @@ import { createClient } from "@supabase/supabase-js";
  *   SUPABASE_URL=your-project-url.supabase.co
  *   SUPABASE_ANON_KEY=your-anon-key
  */
-const supabase = createClient(
-    process.env.SUPABASE_URL || "",
-    process.env.SUPABASE_ANON_KEY || "",
-);
+const supabase = createClient(process.env.SUPABASE_URL || "", process.env.SUPABASE_ANON_KEY || "");
 
 // ============================================
 // Types

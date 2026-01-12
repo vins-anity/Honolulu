@@ -1,21 +1,21 @@
-import { Hono } from "hono";
-import { logger } from "hono/logger";
-import { cors } from "hono/cors";
 import { vValidator } from "@hono/valibot-validator";
+import { Hono } from "hono";
+import { cors } from "hono/cors";
+import { logger } from "hono/logger";
 import { HelloWorldSchema } from "shared";
 import { errorHandler } from "./middleware/error";
 import todosRoutes from "./routes/todos";
 
 /**
  * Honolulu API
- * 
+ *
  * A Hono-powered REST API with modular routing.
- * 
+ *
  * Architecture:
  * - Routes: HTTP layer, validation, response formatting
  * - Services: Business logic, pure functions
  * - DB: Drizzle ORM with PostgreSQL
- * 
+ *
  * @see https://hono.dev/docs/guides/best-practices
  */
 
@@ -30,12 +30,12 @@ app.use("*", logger());
 
 // CORS for development (configure for production)
 app.use(
-  "*",
-  cors({
-    origin: ["http://localhost:5173", "http://localhost:3000"],
-    allowMethods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
-    allowHeaders: ["Content-Type", "Authorization"],
-  }),
+    "*",
+    cors({
+        origin: ["http://localhost:5173", "http://localhost:3000"],
+        allowMethods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+        allowHeaders: ["Content-Type", "Authorization"],
+    }),
 );
 
 // Global error handler
@@ -46,15 +46,15 @@ app.use("*", errorHandler);
 // ============================================
 
 app.get("/", (c) => {
-  return c.json({
-    message: "🌺 Welcome to Honolulu API!",
-    version: "1.0.0",
-    docs: "/docs",
-  });
+    return c.json({
+        message: "🌺 Welcome to Honolulu API!",
+        version: "1.0.0",
+        docs: "/docs",
+    });
 });
 
 app.get("/health", (c) => {
-  return c.json({ status: "healthy", timestamp: new Date().toISOString() });
+    return c.json({ status: "healthy", timestamp: new Date().toISOString() });
 });
 
 // ============================================
@@ -63,10 +63,10 @@ app.get("/health", (c) => {
 
 // Hello world example with validation
 app.post("/hello", vValidator("json", HelloWorldSchema), (c) => {
-  const data = c.req.valid("json");
-  return c.json({
-    message: `Hello ${data.message}!`,
-  });
+    const data = c.req.valid("json");
+    return c.json({
+        message: `Hello ${data.message}!`,
+    });
 });
 
 // Todos CRUD (example routes)
@@ -77,13 +77,13 @@ app.route("/todos", todosRoutes);
 // ============================================
 
 app.notFound((c) => {
-  return c.json(
-    {
-      error: "Not Found",
-      message: `Route ${c.req.method} ${c.req.path} not found`,
-    },
-    404,
-  );
+    return c.json(
+        {
+            error: "Not Found",
+            message: `Route ${c.req.method} ${c.req.path} not found`,
+        },
+        404,
+    );
 });
 
 // ============================================
@@ -91,8 +91,8 @@ app.notFound((c) => {
 // ============================================
 
 export default {
-  port: process.env.PORT || 3000,
-  fetch: app.fetch,
+    port: process.env.PORT || 3000,
+    fetch: app.fetch,
 };
 
 // Export app for testing

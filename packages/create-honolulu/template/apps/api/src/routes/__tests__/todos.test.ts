@@ -1,5 +1,6 @@
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { app } from "../../index";
+import { db } from "../../db";
 
 // Mock the database
 vi.mock("../../db", () => ({
@@ -68,6 +69,10 @@ describe("Todos API Routes", () => {
 
     describe("DELETE /todos/:id", () => {
         it("should return 404 when deleting non-existent todo", async () => {
+            // Override mock to return empty array (not found)
+            const returningMock = db.returning as unknown as ReturnType<typeof vi.fn>;
+            returningMock.mockResolvedValueOnce([]);
+
             const res = await app.request("/todos/999", {
                 method: "DELETE",
             });

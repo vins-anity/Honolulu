@@ -1,26 +1,19 @@
 {
-  "extends": "../tsconfig.json",
-  "compilerOptions": {
-    "rootDir": ".",
-    "outDir": "dist",
-    "composite": true,
-    "tsBuildInfoFile": "./node_modules/.cache/tsbuildinfo.json"
-  },
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.tsx",
-    "vite.config.ts"
-  ],
-  "exclude": [
-    "node_modules",
-    "dist"
-  ],
-  "references": [
-    {
-      "path": "../shared"
+    "extends": "../../tsconfig.json",
+    "compilerOptions": {
+        "rootDir": ".",
+        "outDir": "dist",
+        "composite": true,
+        "tsBuildInfoFile": "./node_modules/.cache/tsbuildinfo.json"
     },
-    {
-      "path": "../api"
-    }
-  ]
+    "include": ["src/**/*.ts", "src/**/*.tsx", "vite.config.ts"],
+    "exclude": ["node_modules", "dist"],
+    "references": [
+        {
+            "path": "../../packages/shared"
+        },
+        {
+            "path": "../api"
+        }
+    ]
 }

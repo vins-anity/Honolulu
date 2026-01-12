@@ -1,7 +1,7 @@
 import { Command } from "cmdk";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { sidebarLinks } from "../config/docs";
+import { sidebarLinks, type SidebarGroup, type SidebarLink } from "../config/docs";
 import { Search, File } from "lucide-react";
 
 export function CommandMenu() {
@@ -52,35 +52,37 @@ export function CommandMenu() {
             <Command.List className="max-h-[300px] overflow-y-auto p-2 scrollbar-thin scrollbar-thumb-slate-800">
                 <Command.Empty className="py-6 text-center text-sm text-slate-500">No results found.</Command.Empty>
 
-                {sidebarLinks.map((section) => (
-                    <Command.Group key={section.title} heading={section.title} className="text-slate-500 px-2 py-1.5 text-xs font-medium text-muted-foreground mb-1 select-none">
-                        {section.items.map((item) => {
+                {sidebarLinks.map((section) => {
+                    // Recursive function to get all links from a group/section
+                    const getAllLinks = (items: (SidebarGroup | SidebarLink)[], groupTitle: string): { title: string; href: string; group: string }[] => {
+                        return items.flatMap(item => {
                             if ("items" in item) {
-                                return item.items.map((sub) => (
-                                    <Command.Item
-                                        key={sub.href}
-                                        onSelect={() => runCommand(() => navigate(sub.href))}
-                                        className="relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none aria-selected:bg-rose-500/10 aria-selected:text-rose-400 data-[disabled]:pointer-events-none data-[disabled]:opacity-50 text-slate-300 transition-colors"
-                                    >
-                                        <File className="mr-2 h-4 w-4 opacity-50" />
-                                        <span className="opacity-50 mr-2 text-xs uppercase tracking-wider">{item.title}</span>
-                                        {sub.title}
-                                    </Command.Item>
-                                ));
+                                return getAllLinks(item.items, `${groupTitle} > ${item.title}`);
                             }
-                            return (
+                            return [{ title: item.title, href: item.href, group: groupTitle }];
+                        });
+                    };
+
+                    const links = getAllLinks(section.items, section.title);
+
+                    if (links.length === 0) return null;
+
+                    return (
+                        <Command.Group key={section.title} heading={section.title} className="text-slate-500 px-2 py-1.5 text-xs font-medium text-muted-foreground mb-1 select-none">
+                            {links.map((link) => (
                                 <Command.Item
-                                    key={item.href}
-                                    onSelect={() => runCommand(() => navigate(item.href))}
+                                    key={link.href}
+                                    onSelect={() => runCommand(() => navigate(link.href))}
                                     className="relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none aria-selected:bg-rose-500/10 aria-selected:text-rose-400 data-[disabled]:pointer-events-none data-[disabled]:opacity-50 text-slate-300 transition-colors"
                                 >
                                     <File className="mr-2 h-4 w-4 opacity-50" />
-                                    {item.title}
+                                    <span className="opacity-50 mr-2 text-xs uppercase tracking-wider hidden sm:inline-block">{link.group}</span>
+                                    {link.title}
                                 </Command.Item>
-                            );
-                        })}
-                    </Command.Group>
-                ))}
+                            ))}
+                        </Command.Group>
+                    );
+                })}
             </Command.List>
             <div className="border-t border-slate-800 px-4 py-2 text-xs text-slate-500 flex justify-between">
                 <span>Search Documentation</span>

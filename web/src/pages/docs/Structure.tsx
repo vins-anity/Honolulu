@@ -11,6 +11,12 @@ export function Structure() {
                     Honolulu is a <strong className="text-white">monorepo</strong> powered by Turborepo.
                     Three packages work together: a React frontend, a Hono API, and a shared types package.
                 </p>
+                <div className="bg-slate-800/50 border border-slate-700/50 rounded-lg p-4 text-sm text-slate-400 mt-4">
+                    <p>
+                        <strong className="text-white">Note:</strong> This structure describes the <strong>Opinionated</strong> architecture.
+                        If you chose <strong>Unopinionated</strong>, your project will be a single-package app without the <code>apps/</code> and <code>packages/</code> workspace complexity.
+                    </p>
+                </div>
             </div>
 
             {/* Visual Overview */}

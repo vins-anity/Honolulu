@@ -14,12 +14,7 @@ export function DocsLayout() {
     // Track expanded state for Sections and Groups
     // Format: "Section:Title" or "Group:Parent:Title" to avoid collisions
     const [expanded, setExpanded] = useState<Record<string, boolean>>({
-        "S:Getting Started": true,
-        "S:Architecture": true,
-        "S:Deployment": true,
-        "G:Deployment:Web": true,
-        "G:Deployment:API": true,
-        "G:Deployment:Shared": true,
+        "G:Documentation:Getting Started": true,
     });
 
     const toggle = (key: string) => {
@@ -129,9 +124,11 @@ export function DocsLayout() {
                         {sidebarLinks.map((section) => (
                             <div key={section.title}>
                                 {/* Section Header */}
-                                <div className="flex items-center justify-between w-full text-left text-xs font-bold text-slate-500 uppercase tracking-wider mb-3 px-2">
-                                    {section.title}
-                                </div>
+                                {sidebarLinks.length > 1 && (
+                                    <div className="flex items-center justify-between w-full text-left text-xs font-bold text-slate-500 uppercase tracking-wider mb-3 px-2">
+                                        {section.title}
+                                    </div>
+                                )}
 
                                 <div className="space-y-1">
                                     {section.items.map(item => renderSidebarItem(item, section.title))}

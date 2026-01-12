@@ -6,25 +6,22 @@
         "useIgnoreFile": true
     },
     "files": {
-        "ignoreUnknown": false,
-        "ignore": [
-            "node_modules",
-            "dist",
-            ".turbo"
-        ]
+        "ignoreUnknown": true,
+        "includes": ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx", "**/*.json", "**/*.css"]
     },
     "formatter": {
         "enabled": true,
-        "indentStyle": "tab",
+        "indentStyle": "space",
+        "indentWidth": 4,
         "lineWidth": 100
-    },
-    "organizeImports": {
-        "enabled": true
     },
     "linter": {
         "enabled": true,
         "rules": {
-            "recommended": true
+            "recommended": true,
+            "style": {
+                "noUnusedTemplateLiteral": "off"
+            }
         }
     },
     "javascript": {

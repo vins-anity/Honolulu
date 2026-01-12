@@ -1,11 +1,11 @@
 import { eq } from "drizzle-orm";
+import type { CreateTodo, UpdateTodo } from "shared";
 import { db } from "../db";
 import { todos } from "../db/schema";
-import type { CreateTodo, UpdateTodo } from "shared";
 
 /**
  * Todos Service Layer
- * 
+ *
  * Pure business logic functions - no HTTP concerns.
  * This makes testing easy and keeps routes thin.
  */

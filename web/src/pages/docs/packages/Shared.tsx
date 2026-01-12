@@ -51,8 +51,7 @@ export function PackageShared() {
 ├── src/
 │   ├── index.ts          # Barrel export for all schemas
 │   ├── schemas/          # Valibot validation schemas
-│   │   ├── todo.ts       # Todo schemas
-│   │   └── user.ts       # User schemas
+│   │   └── todo.ts       # Todo schemas
 │   └── __tests__/        # Schema tests
 ├── tsconfig.json
 └── package.json`}
@@ -126,7 +125,6 @@ export type UpdateTodo = v.InferOutput<typeof UpdateTodoSchema>;`}
                     filename="src/index.ts"
                     language="typescript"
                     code={`export * from "./schemas/todo";
-export * from "./schemas/user";
 // Add more as needed`}
                 />
             </section>
