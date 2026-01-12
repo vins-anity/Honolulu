@@ -5,7 +5,10 @@
         "rootDir": "./src",
         "module": "ESNext",
         "target": "ESNext",
-        "moduleResolution": "bundler"
+        "moduleResolution": "bundler",
+        "jsx": "react",
+        "jsxFactory": "React.createElement",
+        "jsxFragmentFactory": "React.Fragment"
     },
     "include": [
         "src/**/*"
