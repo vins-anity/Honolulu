@@ -139,7 +139,7 @@ export function Home() {
 
                         <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4">
                             <Link
-                                to="/docs/installation"
+                                to="/docs/get-started"
                                 className="group relative px-6 sm:px-8 py-3 sm:py-4 bg-white text-slate-900 rounded-xl font-bold hover:bg-slate-100 transition-all active:scale-95 flex items-center gap-2 text-base sm:text-lg shadow-2xl shadow-white/10"
                             >
                                 <span>Get Started</span>

@@ -96,10 +96,10 @@ export function Home() {
                         </div>
 
                         <h1 className="text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-[1.1]">
-                            Put your codebase on
+                            your code
                             <br />
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-400 via-fuchsia-400 to-indigo-400">
-                                Island Time
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 via-cyan-500 to-blue-600">
+                                in paradise.
                             </span>
                         </h1>
 
@@ -112,7 +112,7 @@ export function Home() {
                                 to="/docs/installation"
                                 className="px-8 py-4 bg-rose-500 hover:bg-rose-600 text-white rounded-xl font-bold transition-all active:scale-95 flex items-center gap-2 text-lg shadow-lg shadow-rose-500/20"
                             >
-                                <span>Start Building</span>
+                                <span>Catch the wave</span>
                                 <ArrowRight className="w-5 h-5" />
                             </Link>
 
