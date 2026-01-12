@@ -9,8 +9,7 @@
 	"workspaces": [
 		"./api",
 		"./web",
-		"./shared",
-		"./packages/create-honolulu"
+		"./shared"
 	],
 	"scripts": {
 		"dev": "turbo dev",

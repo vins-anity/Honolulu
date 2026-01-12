@@ -1,0 +1,36 @@
+{
+    "name": "create-honolulu",
+    "version": "1.0.0",
+    "description": "Create a new Honolulu project with interactive prompts",
+    "type": "module",
+    "bin": {
+        "create-honolulu": "./dist/index.js"
+    },
+    "files": [
+        "dist",
+        "template"
+    ],
+    "scripts": {
+        "build": "bun build src/index.ts --outdir dist --target node --format esm",
+        "dev": "bun run src/index.ts"
+    },
+    "dependencies": {
+        "@clack/prompts": "^0.8.2",
+        "picocolors": "^1.1.1"
+    },
+    "devDependencies": {
+        "@types/node": "^22.19.2",
+        "typescript": "~5.7.3"
+    },
+    "keywords": [
+        "honolulu",
+        "starter",
+        "monorepo",
+        "bun",
+        "hono",
+        "react",
+        "template",
+        "cli"
+    ],
+    "license": "MIT"
+}
