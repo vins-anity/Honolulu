@@ -22,13 +22,14 @@ const TEMPLATE_DIR = getTemplateDir();
 interface TemplateOptions {
     database: DatabaseOption;
     auth: AuthOption;
+    apiStyle: string;
 }
 
 export async function copyTemplate(
     targetDir: string,
     options: TemplateOptions,
 ): Promise<void> {
-    const { database, auth } = options;
+    const { database, auth, apiStyle } = options;
 
     // Create target directory
     await fs.mkdir(targetDir, { recursive: true });
@@ -54,8 +55,8 @@ export async function copyTemplate(
         }
     }
 
-    //Create .env.example with appropriate database configuration
-    await createEnvFile(targetDir, database, auth);
+    // Create .env.example with appropriate database configuration
+    await createEnvFile(targetDir, database, auth, apiStyle);
 
     // Create apps and packages directories
     await fs.mkdir(path.join(targetDir, "apps"), { recursive: true });
@@ -81,12 +82,84 @@ export async function copyTemplate(
 
     // TODO: Add conditional auth files based on `auth` option
     // TODO: Update database connection files based on `database` option
+
+    if (apiStyle === "openapi") {
+        await setupOpenApi(targetDir);
+    }
+}
+
+async function setupOpenApi(targetDir: string) {
+    const apiPackageJsonPath = path.join(targetDir, "apps/api/package.json");
+    const apiIndexTsPath = path.join(targetDir, "apps/api/src/index.ts");
+
+    // 1. Add dependencies to apps/api/package.json
+    try {
+        const packageJsonContent = await fs.readFile(apiPackageJsonPath, "utf-8");
+        const packageJson = JSON.parse(packageJsonContent);
+
+        packageJson.dependencies["@scalar/hono-api-reference"] = "^0.5.150";
+
+        await fs.writeFile(apiPackageJsonPath, JSON.stringify(packageJson, null, 2));
+    } catch (error) {
+        console.warn("Failed to update api/package.json for OpenAPI", error);
+    }
+
+    // 2. Add Scalar UI route to apps/api/src/index.ts
+    try {
+        let indexTsContent = await fs.readFile(apiIndexTsPath, "utf-8");
+
+        // Add Import
+        if (!indexTsContent.includes("@scalar/hono-api-reference")) {
+            indexTsContent = `import { apiReference } from "@scalar/hono-api-reference";\n` + indexTsContent;
+        }
+
+        // Add Route (before 404 handler)
+        const scalarRoute = `
+// ============================================
+// OpenAPI Documentation
+// ============================================
+
+app.get(
+  "/reference",
+  apiReference({
+    pageTitle: "Honolulu API Reference",
+    spec: {
+      url: "/doc",
+    },
+  }),
+);
+
+app.get("/doc", (c) => {
+  return c.json({
+    openapi: "3.0.0",
+    info: {
+      title: "Honolulu API",
+      version: "1.0.0",
+    },
+    paths: {},
+  });
+});
+`;
+
+        // Insert before 404 handler or before export
+        if (indexTsContent.includes("// 404 Handler")) {
+            indexTsContent = indexTsContent.replace("// 404 Handler", scalarRoute + "\n// 404 Handler");
+        } else {
+            // Fallback: append
+            indexTsContent += scalarRoute;
+        }
+
+        await fs.writeFile(apiIndexTsPath, indexTsContent);
+    } catch (error) {
+        console.warn("Failed to update api/src/index.ts for OpenAPI", error);
+    }
 }
 
 async function createEnvFile(
     targetDir: string,
     database: DatabaseOption,
     auth: AuthOption,
+    apiStyle: string,
 ): Promise<void> {
     const envPath = path.join(targetDir, ".env.example");
     let envContent = "# Environment Variables\n\n";

@@ -1,22 +1,73 @@
 import { Link, Outlet, useLocation } from "react-router-dom";
-import { Book, Cpu, Layers, Rocket, Github, Menu, X, Cloud } from "lucide-react";
+import { Book, Cpu, Layers, Rocket, Github, Menu, X, Cloud, Search } from "lucide-react";
 import { useState } from "react";
 import clsx from "clsx";
 
-const sidebarLinks = [
+// Define types for sidebar structure
+type SidebarLink = {
+    title: string;
+    href: string;
+};
+
+type SidebarGroup = {
+    title: string;
+    items: SidebarLink[];
+};
+
+type SidebarSection = {
+    title: string;
+    items: (SidebarGroup | SidebarLink)[]; // Can be direct links or groups
+};
+
+const sidebarLinks: SidebarSection[] = [
     {
-        title: "Getting Started",
-        links: [
-            { title: "Introduction", href: "/docs/introduction", icon: Book },
-            { title: "Installation", href: "/docs/installation", icon: Rocket },
-            { title: "Deployment", href: "/docs/deployment", icon: Cloud },
+        title: "Overview",
+        items: [
+            { title: "Get Started", href: "/docs/get-started" },
+            { title: "Why Honolulu?", href: "/docs/why-honolulu" },
+            { title: "Project Structure", href: "/docs/structure" },
         ],
     },
     {
-        title: "Architecture",
-        links: [
-            { title: "Project Structure", href: "/docs/structure", icon: Layers },
-            { title: "Tech Stack", href: "/docs/tech-stack", icon: Cpu },
+        title: "Guides",
+        items: [
+            { title: "Environment Variables", href: "/docs/guides/env" },
+            { title: "Database Patterns", href: "/docs/guides/database" },
+            { title: "Testing", href: "/docs/guides/testing" },
+            { title: "Authentication", href: "/docs/guides/auth" },
+        ],
+    },
+    {
+        title: "Packages",
+        items: [
+            { title: "Web (Frontend)", href: "/docs/packages/web" },
+            { title: "API (Backend)", href: "/docs/packages/api" },
+            { title: "Shared (Schemas)", href: "/docs/packages/shared" },
+        ],
+    },
+    {
+        title: "Deployment",
+        items: [
+            {
+                title: "Web",
+                items: [
+                    { title: "Vercel", href: "/docs/deployment/vercel" },
+                ]
+            },
+            {
+                title: "API",
+                items: [
+                    { title: "Railway", href: "/docs/deployment/railway" },
+                    { title: "Fly.io", href: "/docs/deployment/flyio" },
+                    { title: "Cloudflare Workers", href: "/docs/deployment/cf-workers" },
+                ]
+            },
+            {
+                title: "Shared",
+                items: [
+                    { title: "Docker / VPS", href: "/docs/deployment/docker" },
+                ]
+            },
         ],
     },
 ];
@@ -24,6 +75,66 @@ const sidebarLinks = [
 export function DocsLayout() {
     const location = useLocation();
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+    // Track expanded state for Sections and Groups
+    // Format: "Section:Title" or "Group:Parent:Title" to avoid collisions
+    const [expanded, setExpanded] = useState<Record<string, boolean>>({
+        "S:Getting Started": true,
+        "S:Architecture": true,
+        "S:Deployment": true,
+        "G:Deployment:Web": true,
+        "G:Deployment:API": true,
+        "G:Deployment:Shared": true,
+    });
+
+    const toggle = (key: string) => {
+        setExpanded(prev => ({ ...prev, [key]: !prev[key] }));
+    };
+
+    const renderSidebarItem = (item: SidebarGroup | SidebarLink, parentTitle: string, level = 0) => {
+        // Check if it's a group (has items)
+        if ("items" in item) {
+            const groupKey = `G:${parentTitle}:${item.title}`;
+            const isExpanded = expanded[groupKey];
+
+            return (
+                <div key={item.title} className="ml-2">
+                    <button
+                        onClick={() => toggle(groupKey)}
+                        className="flex items-center gap-2 w-full text-left text-sm font-medium text-slate-400 hover:text-white py-1 transition-colors"
+                    >
+                        <span className={clsx("transition-transform duration-200", isExpanded ? "rotate-90" : "")}>
+                            ▶
+                        </span>
+                        {item.title}
+                    </button>
+                    {isExpanded && (
+                        <div className="mt-1 ml-2 border-l border-white/10 pl-2 space-y-1">
+                            {item.items.map(subItem => renderSidebarItem(subItem, item.title, level + 1))}
+                        </div>
+                    )}
+                </div>
+            );
+        }
+
+        // It's a link
+        const isActive = location.pathname + location.hash === item.href || location.pathname === item.href.split('#')[0];
+        return (
+            <Link
+                key={item.title}
+                to={item.href}
+                className={clsx(
+                    "block py-1.5 px-3 text-sm rounded-md transition-colors",
+                    isActive
+                        ? "text-rose-400 bg-rose-500/10 font-medium"
+                        : "text-slate-400 hover:text-white hover:bg-white/5"
+                )}
+                onClick={() => setMobileMenuOpen(false)}
+            >
+                {item.title}
+            </Link>
+        );
+    };
 
     return (
         <div className="min-h-screen bg-[#0f172a] text-slate-200 font-sans selection:bg-rose-500 selection:text-white">
@@ -39,9 +150,22 @@ export function DocsLayout() {
                         </span>
                     </div>
 
+                    {/* Search Bar */}
+                    <div className="hidden md:flex flex-1 max-w-md mx-8">
+                        <div className="relative w-full">
+                            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+                            <input
+                                type="text"
+                                placeholder="Search documentation..."
+                                className="w-full pl-10 pr-4 py-2 bg-slate-800/50 border border-slate-700 rounded-lg text-sm text-slate-300 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-rose-500/50 focus:border-rose-500/50 transition-all"
+                            />
+                            <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-slate-600 font-mono">⌘K</span>
+                        </div>
+                    </div>
+
                     <div className="flex items-center gap-4">
                         <a
-                            href="https://github.com/stevedylandev/bhvr"
+                            href="https://github.com/vins-anity/Honolulu"
                             target="_blank"
                             rel="noreferrer"
                             className="text-slate-400 hover:text-white transition-colors"
@@ -62,37 +186,20 @@ export function DocsLayout() {
                 {/* Sidebar */}
                 <aside
                     className={clsx(
-                        "fixed inset-y-0 left-0 pt-16 w-72 bg-[#0f172a] border-r border-white/5 z-40 transform transition-transform duration-300 md:translate-x-0 md:static md:h-[calc(100vh-4rem)] md:border-r-0 md:bg-transparent overflow-y-auto",
+                        "fixed inset-y-0 left-0 pt-16 w-64 bg-[#0f172a] border-r border-white/5 z-40 transform transition-transform duration-300 md:translate-x-0 md:static md:h-[calc(100vh-4rem)] md:border-r-0 md:bg-transparent overflow-y-auto scrollbar-thin scrollbar-thumb-slate-800",
                         mobileMenuOpen ? "translate-x-0" : "-translate-x-full"
                     )}
                 >
-                    <div className="p-6 space-y-8">
+                    <div className="p-4 space-y-6">
                         {sidebarLinks.map((section) => (
                             <div key={section.title}>
-                                <h3 className="text-sm font-bold text-slate-400 uppercase tracking-wider mb-4 px-3">
+                                {/* Section Header */}
+                                <div className="flex items-center justify-between w-full text-left text-xs font-bold text-slate-500 uppercase tracking-wider mb-3 px-2">
                                     {section.title}
-                                </h3>
+                                </div>
+
                                 <div className="space-y-1">
-                                    {section.links.map((link) => {
-                                        const isActive = location.pathname === link.href;
-                                        const Icon = link.icon;
-                                        return (
-                                            <Link
-                                                key={link.href}
-                                                to={link.href}
-                                                className={clsx(
-                                                    "flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors",
-                                                    isActive
-                                                        ? "bg-rose-500/10 text-rose-400"
-                                                        : "text-slate-400 hover:text-slate-200 hover:bg-white/5"
-                                                )}
-                                                onClick={() => setMobileMenuOpen(false)}
-                                            >
-                                                <Icon className="w-4 h-4" />
-                                                {link.title}
-                                            </Link>
-                                        );
-                                    })}
+                                    {section.items.map(item => renderSidebarItem(item, section.title))}
                                 </div>
                             </div>
                         ))}

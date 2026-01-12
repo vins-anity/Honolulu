@@ -21,10 +21,13 @@ type AppState =
     | "input-name"
     | "select-database"
     | "select-auth"
+    | "select-api"
     | "select-features"
     | "installing"
     | "complete"
     | "error";
+
+import { ApiSelect } from "./components/ApiSelect.js";
 
 interface AppProps {
     initialProjectName?: string;
@@ -40,6 +43,7 @@ const App: React.FC<AppProps> = ({ initialProjectName }) => {
     const [inputError, setInputError] = useState<string>();
     const [database, setDatabase] = useState<DatabaseOption>("postgresql");
     const [auth, setAuth] = useState<AuthOption>("none");
+    const [apiStyle, setApiStyle] = useState<string>("basic");
     const [git, setGit] = useState(true);
     const [install, setInstall] = useState(true);
     const [installStatus, setInstallStatus] = useState<InstallStatus>({
@@ -73,7 +77,7 @@ const App: React.FC<AppProps> = ({ initialProjectName }) => {
         // If Supabase, skip auth selection (Supabase has built-in auth)
         if (db === "supabase") {
             setAuth("supabase");
-            setState("select-features");
+            setState("select-api"); // Move to API select instead of features
         } else {
             setState("select-auth");
         }
@@ -81,6 +85,11 @@ const App: React.FC<AppProps> = ({ initialProjectName }) => {
 
     const handleAuthSelect = (authOption: AuthOption) => {
         setAuth(authOption);
+        setState("select-api"); // Move to API select instead of features
+    };
+
+    const handleApiSelect = (style: string) => {
+        setApiStyle(style);
         setState("select-features");
     };
 
@@ -100,7 +109,7 @@ const App: React.FC<AppProps> = ({ initialProjectName }) => {
                 // Step 1: Scaffold
                 setInstallStatus((prev) => ({ ...prev, scaffold: "running" }));
                 setCurrentStep("scaffold");
-                await copyTemplate(targetDir, { database, auth });
+                await copyTemplate(targetDir, { database, auth, apiStyle });
                 setInstallStatus((prev) => ({ ...prev, scaffold: "done" }));
 
                 // Step 2: Git
@@ -140,7 +149,7 @@ const App: React.FC<AppProps> = ({ initialProjectName }) => {
         };
 
         runInstallation();
-    }, [state, projectName, database, auth, git, install]);
+    }, [state, projectName, database, auth, apiStyle, git, install]);
 
     return (
         <Box flexDirection="column" padding={1}>
@@ -163,6 +172,10 @@ const App: React.FC<AppProps> = ({ initialProjectName }) => {
                 <AuthSelect database={database} onSelect={handleAuthSelect} />
             )}
 
+            {state === "select-api" && (
+                <ApiSelect onSelect={handleApiSelect} />
+            )}
+
             {state === "select-features" && (
                 <FeatureSelect onComplete={handleFeaturesComplete} />
             )}
@@ -178,6 +191,7 @@ const App: React.FC<AppProps> = ({ initialProjectName }) => {
                         shouldInstall={install}
                         database={database}
                         auth={auth}
+                        apiStyle={apiStyle}
                     />
                     <Outro />
                 </>

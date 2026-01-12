@@ -9,6 +9,7 @@ interface NextStepsProps {
     shouldInstall: boolean;
     database: DatabaseOption;
     auth: AuthOption;
+    apiStyle: string;
 }
 
 const getDatabaseLabel = (db: DatabaseOption): string => {
@@ -36,6 +37,7 @@ export const NextSteps: React.FC<NextStepsProps> = ({
     shouldInstall,
     database,
     auth,
+    apiStyle,
 }) => {
     return (
         <Box flexDirection="column" marginTop={1}>
@@ -61,6 +63,9 @@ export const NextSteps: React.FC<NextStepsProps> = ({
                 </Text>
                 <Text color="cyan">
                     ✓ Authentication: {getAuthLabel(auth)}
+                </Text>
+                <Text color="cyan">
+                    ✓ API Style: {apiStyle === "basic" ? "Basic Logger" : "OpenAPI + Scalar"}
                 </Text>
             </Box>
 

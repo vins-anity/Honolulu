@@ -90,35 +90,29 @@ export function Home() {
 
                 <div className="max-w-7xl w-full mx-auto grid lg:grid-cols-2 gap-12 lg:gap-16 items-center relative z-10">
                     <div className="text-center lg:text-left space-y-8">
-                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/10 text-teal-400 text-xs font-bold uppercase tracking-wide border border-teal-500/20">
-                            <Zap className="w-3 h-3" />
-                            <span>Powered by Bun v1.2</span>
+                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-800/50 border border-slate-700 text-slate-300 font-mono text-sm backdrop-blur-sm">
+                            <Zap className="w-4 h-4 text-yellow-400" />
+                            <span>Bun + Hono + React + Drizzle</span>
                         </div>
 
                         <h1 className="text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-[1.1]">
-                            Ship Faster with
+                            The vacation your
                             <br />
                             <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-400 via-fuchsia-400 to-indigo-400">
-                                Best-in-Class Defaults
+                                codebase deserves
                             </span>
                         </h1>
 
                         <p className="text-lg sm:text-xl text-slate-400 max-w-xl mx-auto lg:mx-0 leading-relaxed">
-                            The production-ready monorepo starter.
-                            <br className="hidden sm:block" />
-                            <span className="text-white font-medium">Bun</span> runtime.
-                            <span className="text-white font-medium"> Hono</span> backend.
-                            <span className="text-white font-medium"> React</span> frontend.
-                            <br />
-                            Zero config. 100% Type-safe.
+                            Surf past config chaos. Build and launch your vision fast... like really fast.
                         </p>
 
                         <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4">
                             <Link
                                 to="/docs/installation"
-                                className="px-8 py-4 bg-white text-slate-900 rounded-xl font-bold hover:bg-slate-100 transition-all active:scale-95 flex items-center gap-2 text-lg"
+                                className="px-8 py-4 bg-rose-500 hover:bg-rose-600 text-white rounded-xl font-bold transition-all active:scale-95 flex items-center gap-2 text-lg shadow-lg shadow-rose-500/20"
                             >
-                                <span>Get Started</span>
+                                <span>Start Building</span>
                                 <ArrowRight className="w-5 h-5" />
                             </Link>
 
