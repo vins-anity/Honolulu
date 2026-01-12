@@ -4,7 +4,7 @@
     "description": "Create a new Honolulu project with interactive prompts",
     "type": "module",
     "bin": {
-        "create-honolulu": "./dist/index.js"
+        "create-honolulu": "dist/index.js"
     },
     "files": [
         "dist",
@@ -32,5 +32,15 @@
         "template",
         "cli"
     ],
+    "author": "Steve Simkins",
+    "homepage": "https://github.com/stevedylandev/bhvr#readme",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/stevedylandev/bhvr.git",
+        "directory": "packages/create-honolulu"
+    },
+    "bugs": {
+        "url": "https://github.com/stevedylandev/bhvr/issues"
+    },
     "license": "MIT"
 }

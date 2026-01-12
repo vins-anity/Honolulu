@@ -13,29 +13,35 @@ npx create-honolulu
 
 # Using pnpm
 pnpm create honolulu
-
-# Or install globally
-bun add -g create-honolulu
-create-honolulu
 ```
 
 ## Features
 
 - 🎨 **Beautiful CLI interface** with `@clack/prompts`
-- ⚡ **Workspace selection** - Choose API, Web, Shared, or all
-- 📦 **Package manager choice** - Bun, npm, pnpm, or Yarn
-- 🎯 **Git initialization** - Optional automatic git setup
-- 🚀 **Dependency installation** - Automatic or manual
+- 📱 **Monorepo structure** - `apps/` (Web, API) and `packages/` (Shared)
+- ⚡ **Supabase integration** - Optional auth & database setup
+- 🚀 **Smart Defaults** - Pre-configured tooling (Biome, Husky, Turbo)
+- 📦 **Bun-first** - Optimized for Bun runtime
 
 ## What You'll Get
 
-When you run `create-honolulu`, you'll be prompted to:
+When you run `create-honolulu`, you'll be prompted for:
 
-1. **Name your project** - Must be lowercase with hyphens
-2. **Select workspaces** - API (Hono), Web (React), Shared (Types)
-3. **Choose package manager** - Bun (recommended), npm, pnpm, or Yarn
-4. **Initialize git** - Creates initial commit
-5. **Install dependencies** - Automatic installation
+1. **Project Name**
+2. **Supabase Support** (Yes/No)
+3. **Git Initialization**
+
+The CLI will automatically setup your project structure:
+
+```
+my-app/
+├── apps/
+│   ├── api/     # Hono backend
+│   └── web/     # React frontend
+├── packages/
+│   └── shared/  # Shared types
+└── package.json
+```
 
 ## Development
 
@@ -44,7 +50,7 @@ When you run `create-honolulu`, you'll be prompted to:
 bun run build
 
 # Test locally
-bun run dev
+bunx . my-test-app
 ```
 
 ## License

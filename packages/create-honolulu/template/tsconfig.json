@@ -30,13 +30,13 @@
     "baseUrl": ".",
     "paths": {
       "@api/*": [
-        "api/src/*"
+        "apps/api/src/*"
       ],
       "@web/*": [
-        "web/src/*"
+        "apps/web/src/*"
       ],
       "@shared/*": [
-        "shared/src/*"
+        "packages/shared/src/*"
       ]
     },
     // Optional strict flags (disabled by default for DX)
@@ -46,13 +46,13 @@
   },
   "references": [
     {
-      "path": "./shared"
+      "path": "./packages/shared"
     },
     {
-      "path": "./api"
+      "path": "./apps/api"
     },
     {
-      "path": "./web"
+      "path": "./apps/web"
     }
   ]
 }

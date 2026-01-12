@@ -9,6 +9,12 @@ Honolulu is a high-octane, Bun-fueled engine designed to launch your next produc
 
 ## Quick Start
 
+**Create a new project:**
+```bash
+bun create honolulu
+```
+
+**Or clone this template:**
 ```bash
 bun install
 bun run dev

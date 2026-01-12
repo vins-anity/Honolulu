@@ -7,8 +7,7 @@ const TEMPLATE_DIR = path.resolve(__dirname, "../../template");
 
 export async function copyTemplate(
     targetDir: string,
-    workspaces: string[],
-    database: string
+    useSupabase: boolean
 ): Promise<void> {
     // Create target directory
     await fs.mkdir(targetDir, { recursive: true });
@@ -36,65 +35,62 @@ export async function copyTemplate(
         }
     }
 
-    // Copy packages directory structure
-    const packagesDir = path.join(targetDir, "packages");
-    await fs.mkdir(packagesDir, { recursive: true });
+    // Create apps and packages directories
+    await fs.mkdir(path.join(targetDir, "apps"), { recursive: true });
+    await fs.mkdir(path.join(targetDir, "packages"), { recursive: true });
 
-    // Copy selected workspaces
-    for (const workspace of workspaces) {
-        const srcWorkspace = path.join(TEMPLATE_DIR, "packages", workspace);
-        const destWorkspace = path.join(packagesDir, workspace);
+    // Copy apps/api
+    await copyDir(
+        path.join(TEMPLATE_DIR, "apps/api"),
+        path.join(targetDir, "apps/api")
+    );
 
+    // Copy apps/web
+    await copyDir(
+        path.join(TEMPLATE_DIR, "apps/web"),
+        path.join(targetDir, "apps/web")
+    );
+
+    // Copy packages/shared
+    await copyDir(
+        path.join(TEMPLATE_DIR, "packages/shared"),
+        path.join(targetDir, "packages/shared")
+    );
+
+    // If no Supabase/DB support, clean up API db files
+    if (!useSupabase) {
+        // Removing db-related files from API
+        const dbDir = path.join(targetDir, "apps/api/src/db");
         try {
-            await copyDir(srcWorkspace, destWorkspace);
-
-            // If workspace is 'api' and database is 'none', remove db directory
-            if (workspace === "api" && database === "none") {
-                const dbDir = path.join(destWorkspace, "src", "db");
-                try {
-                    await fs.rm(dbDir, { recursive: true, force: true });
-                } catch (error) {
-                    // Directory might not exist
-                }
-            }
+            await fs.rm(dbDir, { recursive: true, force: true });
         } catch (error) {
-            console.warn(`Warning: Could not copy workspace ${workspace}`);
+            // Directory might not exist
         }
-    }
 
-    // Update root package.json to only include selected workspaces
-    const pkgPath = path.join(targetDir, "package.json");
-    try {
-        const pkgContent = await fs.readFile(pkgPath, "utf-8");
-        const pkg = JSON.parse(pkgContent);
-        pkg.workspaces = workspaces.map(w => `packages/${w}`);
-        await fs.writeFile(pkgPath, JSON.stringify(pkg, null, 2));
-    } catch (error) {
-        // Continue even if we can't update package.json
+        // Note: We might also want to clean up package.json dependencies here in a real scenario
+        // but keeping it simple for now as requested (just structure & prompts)
     }
 
     // Update .env.example based on database choice
-    if (database !== "none") {
-        const envPath = path.join(targetDir, ".env.example");
-        let envContent = "";
+    const envPath = path.join(targetDir, ".env.example");
+    let envContent = "";
 
-        if (database === "supabase") {
-            envContent = `# Supabase Configuration
+    if (useSupabase) {
+        envContent = `# Supabase Configuration
 SUPABASE_URL=your-project-url.supabase.co
 SUPABASE_ANON_KEY=your-anon-key
 DATABASE_URL=postgresql://postgres:[password]@db.[project-ref].supabase.co:5432/postgres
 `;
-        } else if (database === "local") {
-            envContent = `# Local Postgres Configuration
-DATABASE_URL=postgresql://postgres:postgres@localhost:5432/honolulu
+    } else {
+        envContent = `# No database selected
+# Add your environment variables here
 `;
-        }
+    }
 
-        try {
-            await fs.writeFile(envPath, envContent);
-        } catch (error) {
-            // Continue if we can't write env file
-        }
+    try {
+        await fs.writeFile(envPath, envContent);
+    } catch (error) {
+        // Continue if we can't write env file
     }
 }
 

@@ -7,9 +7,8 @@
 	"homepage": "https://github.com/stevedylandev/bhvr",
 	"packageManager": "bun@1.2.4",
 	"workspaces": [
-		"./api",
-		"./web",
-		"./shared"
+		"./apps/*",
+		"./packages/*"
 	],
 	"scripts": {
 		"dev": "turbo dev",
