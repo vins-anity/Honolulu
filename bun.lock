@@ -60,6 +60,9 @@
     "shared": {
       "name": "shared",
       "version": "0.0.1",
+      "dependencies": {
+        "valibot": "^1.0.0",
+      },
       "devDependencies": {
         "typescript": "^5.9.3",
       },
