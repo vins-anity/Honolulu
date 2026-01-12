@@ -2,75 +2,10 @@ import { Link, Outlet, useLocation } from "react-router-dom";
 import { Book, Cpu, Layers, Rocket, Github, Menu, X, Cloud, Search } from "lucide-react";
 import { useState } from "react";
 import clsx from "clsx";
+import { sidebarLinks, type SidebarGroup, type SidebarLink } from "../config/docs";
+import { CommandMenu } from "../components/CommandMenu";
 
-// Define types for sidebar structure
-type SidebarLink = {
-    title: string;
-    href: string;
-};
 
-type SidebarGroup = {
-    title: string;
-    items: SidebarLink[];
-};
-
-type SidebarSection = {
-    title: string;
-    items: (SidebarGroup | SidebarLink)[]; // Can be direct links or groups
-};
-
-const sidebarLinks: SidebarSection[] = [
-    {
-        title: "Overview",
-        items: [
-            { title: "Get Started", href: "/docs/get-started" },
-            { title: "Why Honolulu?", href: "/docs/why-honolulu" },
-            { title: "Project Structure", href: "/docs/structure" },
-        ],
-    },
-    {
-        title: "Guides",
-        items: [
-            { title: "Environment Variables", href: "/docs/guides/env" },
-            { title: "Database Patterns", href: "/docs/guides/database" },
-            { title: "Testing", href: "/docs/guides/testing" },
-            { title: "Authentication", href: "/docs/guides/auth" },
-        ],
-    },
-    {
-        title: "Packages",
-        items: [
-            { title: "Web (Frontend)", href: "/docs/packages/web" },
-            { title: "API (Backend)", href: "/docs/packages/api" },
-            { title: "Shared (Schemas)", href: "/docs/packages/shared" },
-        ],
-    },
-    {
-        title: "Deployment",
-        items: [
-            {
-                title: "Web",
-                items: [
-                    { title: "Vercel", href: "/docs/deployment/vercel" },
-                ]
-            },
-            {
-                title: "API",
-                items: [
-                    { title: "Railway", href: "/docs/deployment/railway" },
-                    { title: "Fly.io", href: "/docs/deployment/flyio" },
-                    { title: "Cloudflare Workers", href: "/docs/deployment/cf-workers" },
-                ]
-            },
-            {
-                title: "Shared",
-                items: [
-                    { title: "Docker / VPS", href: "/docs/deployment/docker" },
-                ]
-            },
-        ],
-    },
-];
 
 export function DocsLayout() {
     const location = useLocation();
@@ -152,14 +87,14 @@ export function DocsLayout() {
 
                     {/* Search Bar */}
                     <div className="hidden md:flex flex-1 max-w-md mx-8">
-                        <div className="relative w-full">
-                            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
-                            <input
-                                type="text"
-                                placeholder="Search documentation..."
-                                className="w-full pl-10 pr-4 py-2 bg-slate-800/50 border border-slate-700 rounded-lg text-sm text-slate-300 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-rose-500/50 focus:border-rose-500/50 transition-all"
-                            />
-                            <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-slate-600 font-mono">⌘K</span>
+                        <div className="relative w-full cursor-pointer group" data-command-trigger>
+                            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500 group-hover:text-slate-400 transition-colors" />
+                            <div
+                                className="w-full pl-10 pr-4 py-2 bg-slate-800/50 border border-slate-700 rounded-lg text-sm text-slate-500 cursor-pointer group-hover:bg-slate-800 group-hover:border-slate-600 transition-all select-none"
+                            >
+                                Search documentation...
+                            </div>
+                            <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-slate-600 font-mono group-hover:text-slate-500 transition-colors">⌘K</span>
                         </div>
                     </div>
 
@@ -221,6 +156,7 @@ export function DocsLayout() {
                     </div>
                 </main>
             </div>
+            <CommandMenu />
         </div>
     );
 }
