@@ -29,6 +29,9 @@
     // Path aliases for DX
     "baseUrl": ".",
     "paths": {
+      "shared": [
+        "shared/src/index.ts"
+      ],
       "@api/*": [
         "api/src/*"
       ],
