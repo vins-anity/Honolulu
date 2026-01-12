@@ -2,8 +2,21 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
+import { existsSync } from "node:fs";
+
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const TEMPLATE_DIR = path.resolve(__dirname, "../../template");
+
+// In source: src/utils/copy.ts -> ../../template
+// In bundle: dist/index.js -> ../template
+const getTemplateDir = () => {
+    const prodPath = path.resolve(__dirname, "../template");
+    const devPath = path.resolve(__dirname, "../../template");
+
+    if (existsSync(prodPath)) return prodPath;
+    return devPath;
+};
+
+const TEMPLATE_DIR = getTemplateDir();
 
 export async function copyTemplate(
     targetDir: string,

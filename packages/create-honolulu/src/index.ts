@@ -12,15 +12,18 @@ async function main() {
 
     await setTimeout(100);
 
-    p.intro(`${pc.bgMagenta(pc.black(" 🌺 HONOLULU "))} ${pc.dim("v1.0.0")}`);
+    const args = process.argv.slice(2);
+    let projectName = args[0];
 
-    p.log.message(pc.dim("  The vacation your codebase deserves.\n  Stop swimming in configuration files. Start surfing your dream product."));
+    p.intro(`${pc.bgMagenta(pc.black(" 🌺 HONOLULU "))} ${pc.dim("v1.0.1")}`);
+
+    p.log.step(pc.cyan("Your code, in paradise."));
 
     const project = await p.group(
         {
             name: () =>
-                p.text({
-                    message: "Where should we create your project?",
+                !projectName ? p.text({
+                    message: "Project name",
                     placeholder: "./my-honolulu-app",
                     defaultValue: "my-honolulu-app",
                     validate: (value) => {
@@ -29,7 +32,7 @@ async function main() {
                             return "Name to only contain lowercase letters, numbers, and hyphens";
                         return undefined;
                     },
-                }),
+                }) : Promise.resolve(projectName),
 
             supabase: () =>
                 p.confirm({
