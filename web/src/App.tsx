@@ -23,6 +23,7 @@ import {
   GuideTesting,
   GuideAuth
 } from "./pages/docs/guides/index";
+import { OpenApiGuide } from "./pages/docs/guides/OpenApi";
 
 function App() {
   return (
@@ -40,6 +41,7 @@ function App() {
           <Route path="guides/database" element={<GuideDatabase />} />
           <Route path="guides/testing" element={<GuideTesting />} />
           <Route path="guides/auth" element={<GuideAuth />} />
+          <Route path="guides/openapi" element={<OpenApiGuide />} />
           {/* Deployment pages */}
           <Route path="deployment/vercel" element={<DeployVercel />} />
           <Route path="deployment/railway" element={<DeployRailway />} />

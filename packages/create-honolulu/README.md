@@ -32,8 +32,7 @@ When you run `create-honolulu`, you'll be prompted for:
 3. **Styling** (Tailwind/Shadcn/Classic)
 4. **Database** (PostgreSQL/MySQL/SQLite/Supabase)
 5. **Auth** (Supabase/Clerk/Auth.js/None)
-6. **API Style** (Basic/OpenAPI)
-7. **Git Initialization**
+6. **Git Initialization**
 
 The CLI will automatically setup your project structure:
 

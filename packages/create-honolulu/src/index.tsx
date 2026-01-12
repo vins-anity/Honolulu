@@ -29,7 +29,7 @@ type AppState =
     | "complete"
     | "error";
 
-import { ApiSelect } from "./components/ApiSelect.js";
+
 import { ArchitectureSelect } from "./components/ArchitectureSelect.js";
 import { StyleSelect } from "./components/StyleSelect.js";
 
@@ -47,7 +47,7 @@ const App: React.FC<AppProps> = ({ initialProjectName }) => {
     const [inputError, setInputError] = useState<string>();
     const [database, setDatabase] = useState<DatabaseOption>("postgresql");
     const [auth, setAuth] = useState<AuthOption>("none");
-    const [apiStyle, setApiStyle] = useState<string>("basic");
+    const [apiStyle, setApiStyle] = useState<string>("openapi");
     const [architecture, setArchitecture] = useState<string>("opinionated");
     const [style, setStyle] = useState<string>("tailwind");
     const [git, setGit] = useState(true);
@@ -93,7 +93,7 @@ const App: React.FC<AppProps> = ({ initialProjectName }) => {
         // If Supabase, skip auth selection (Supabase has built-in auth)
         if (db === "supabase") {
             setAuth("supabase");
-            setState("select-api");
+            setState("select-features");
         } else {
             setState("select-auth");
         }
@@ -101,13 +101,10 @@ const App: React.FC<AppProps> = ({ initialProjectName }) => {
 
     const handleAuthSelect = (authOption: AuthOption) => {
         setAuth(authOption);
-        setState("select-api");
-    };
-
-    const handleApiSelect = (style: string) => {
-        setApiStyle(style);
         setState("select-features");
     };
+
+
 
     const handleFeaturesComplete = (selections: { git: boolean; install: boolean }) => {
         setGit(selections.git);
@@ -202,9 +199,7 @@ const App: React.FC<AppProps> = ({ initialProjectName }) => {
                 <AuthSelect database={database} onSelect={handleAuthSelect} />
             )}
 
-            {state === "select-api" && (
-                <ApiSelect onSelect={handleApiSelect} />
-            )}
+
 
             {state === "select-features" && (
                 <FeatureSelect onComplete={handleFeaturesComplete} />

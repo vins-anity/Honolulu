@@ -36,7 +36,7 @@ export function GetStarted() {
                         <div className="flex-1">
                             <h3 className="font-medium text-white mb-2">Follow the prompts</h3>
                             <p className="text-slate-400 text-sm">
-                                Customize your stack: Select your Database, Authentication provider, Architecture (Opinionated/Unopinionated), and Styling preference (Tailwind, Shadcn, or Classic CSS).
+                                Customize your stack: Select your Database, Authentication provider, Architecture, and Styling. OpenAPI is included by default!
                             </p>
                         </div>
                     </div>

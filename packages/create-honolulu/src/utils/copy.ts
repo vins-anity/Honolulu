@@ -94,10 +94,8 @@ export async function copyTemplate(
         await setupShadcn(targetDir);
     }
 
-    // 3. Handle API Style (OpenAPI)
-    if (apiStyle === "openapi") {
-        await setupOpenApi(targetDir);
-    }
+    // 3. Setup OpenAPI (Default)
+    await setupOpenApi(targetDir);
 }
 
 async function cleanupForUnopinionated(targetDir: string) {
@@ -259,6 +257,7 @@ async function setupOpenApi(targetDir: string) {
         const packageJson = JSON.parse(packageJsonContent);
 
         packageJson.dependencies["@scalar/hono-api-reference"] = "^0.5.150";
+        packageJson.dependencies["hono-openapi"] = "^0.4.1";
 
         await fs.writeFile(apiPackageJsonPath, JSON.stringify(packageJson, null, 2));
     } catch (error) {
@@ -271,43 +270,54 @@ async function setupOpenApi(targetDir: string) {
 
         // Add Import
         if (!indexTsContent.includes("@scalar/hono-api-reference")) {
-            indexTsContent = `import { apiReference } from "@scalar/hono-api-reference";\n` + indexTsContent;
+            indexTsContent = `import { openAPISpecs } from "hono-openapi";\nimport { apiReference } from "@scalar/hono-api-reference";\n` + indexTsContent;
         }
 
-        // Add Route (before 404 handler)
-        const scalarRoute = `
+        // Add Route (before 404 handler or at end)
+        const openApiSetup = `
 // ============================================
 // OpenAPI Documentation
 // ============================================
 
 app.get(
+  "/doc",
+  openAPISpecs(app, {
+    documentation: {
+      info: {
+        title: "Honolulu API",
+        version: "1.0.0",
+        description: "API Documentation",
+      },
+      servers: [
+        {
+          url: "http://localhost:3000",
+          description: "Local Server",
+        },
+      ],
+    },
+  })
+);
+
+app.get(
   "/reference",
   apiReference({
-    pageTitle: "Honolulu API Reference",
+    theme: "saturn",
     spec: {
       url: "/doc",
     },
-  }),
+  })
 );
-
-app.get("/doc", (c) => {
-  return c.json({
-    openapi: "3.0.0",
-    info: {
-      title: "Honolulu API",
-      version: "1.0.0",
-    },
-    paths: {},
-  });
-});
 `;
 
         // Insert before 404 handler or before export
         if (indexTsContent.includes("// 404 Handler")) {
-            indexTsContent = indexTsContent.replace("// 404 Handler", scalarRoute + "\n// 404 Handler");
+            indexTsContent = indexTsContent.replace("// 404 Handler", openApiSetup + "\n// 404 Handler");
+        } else if (indexTsContent.includes("export default")) {
+            // Safe fallback: insert before export default
+            indexTsContent = indexTsContent.replace("export default", openApiSetup + "\nexport default");
         } else {
             // Fallback: append
-            indexTsContent += scalarRoute;
+            indexTsContent += openApiSetup;
         }
 
         await fs.writeFile(apiIndexTsPath, indexTsContent);

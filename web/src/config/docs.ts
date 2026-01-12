@@ -29,6 +29,7 @@ export const sidebarLinks: SidebarSection[] = [
             { title: "Database Patterns", href: "/docs/guides/database" },
             { title: "Testing", href: "/docs/guides/testing" },
             { title: "Authentication", href: "/docs/guides/auth" },
+            { title: "OpenAPI & Docs", href: "/docs/guides/openapi" },
         ],
     },
     {
