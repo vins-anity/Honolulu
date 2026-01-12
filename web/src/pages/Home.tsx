@@ -1,17 +1,20 @@
 import { useState } from "react";
 import {
-    Zap,
-    Terminal,
-    Code2,
-    Github,
-    ArrowRight,
-    ChevronDown,
-    BookOpen,
-    Check,
-    Globe,
-    Server,
-    Database,
-} from "lucide-react";
+    FaBolt,
+    FaTerminal,
+    FaGithub,
+    FaArrowRight,
+    FaChevronDown,
+    FaBookOpen,
+    FaCheck,
+    FaConciergeBell,
+    FaUmbrellaBeach,
+    FaCocktail,
+    FaShip,
+    FaDatabase,
+    FaNetworkWired,
+    FaRocket,
+} from "react-icons/fa";
 import { Link } from "react-router-dom";
 import Honolulu from "../assets/honolulu-2.svg";
 
@@ -42,7 +45,7 @@ export function Home() {
                                 className="flex items-center gap-1.5 px-3 py-2 rounded-lg hover:bg-white/5 transition-colors text-sm font-medium text-slate-300"
                             >
                                 <span>Resources</span>
-                                <ChevronDown
+                                <FaChevronDown
                                     className={`w-4 h-4 transition-transform ${dropdownOpen ? "rotate-180" : ""}`}
                                 />
                             </button>
@@ -54,14 +57,14 @@ export function Home() {
                                         rel="noreferrer"
                                         className="flex items-center gap-3 px-4 py-3 hover:bg-white/5 transition-colors text-sm"
                                     >
-                                        <Github className="w-4 h-4 text-slate-400" />
+                                        <FaGithub className="w-4 h-4 text-slate-400" />
                                         <span>GitHub</span>
                                     </a>
                                     <Link
                                         to="/docs/introduction"
                                         className="flex items-center gap-3 px-4 py-3 hover:bg-white/5 transition-colors text-sm"
                                     >
-                                        <BookOpen className="w-4 h-4 text-slate-400" />
+                                        <FaBookOpen className="w-4 h-4 text-slate-400" />
                                         <span>Documentation</span>
                                     </Link>
                                 </div>
@@ -74,7 +77,7 @@ export function Home() {
                             rel="noreferrer"
                             className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 hover:bg-white/10 transition-colors border border-white/10 text-sm font-medium"
                         >
-                            <Github className="w-4 h-4" />
+                            <FaGithub className="w-4 h-4" />
                             <span className="hidden sm:inline">Star on GitHub</span>
                         </a>
                     </div>
@@ -91,7 +94,7 @@ export function Home() {
                 <div className="max-w-7xl w-full mx-auto grid lg:grid-cols-2 gap-12 lg:gap-16 items-center relative z-10">
                     <div className="text-center lg:text-left space-y-8">
                         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-800/50 border border-slate-700 text-slate-300 font-mono text-sm backdrop-blur-sm">
-                            <Zap className="w-4 h-4 text-yellow-400" />
+                            <FaBolt className="w-4 h-4 text-yellow-400" />
                             <span>Bun + Hono + React + Drizzle</span>
                         </div>
 
@@ -113,7 +116,7 @@ export function Home() {
                                 className="px-8 py-4 bg-rose-500 hover:bg-rose-600 text-white rounded-xl font-bold transition-all active:scale-95 flex items-center gap-2 text-lg shadow-lg shadow-rose-500/20"
                             >
                                 <span>Catch the wave</span>
-                                <ArrowRight className="w-5 h-5" />
+                                <FaArrowRight className="w-5 h-5" />
                             </Link>
 
                             <div
@@ -125,9 +128,9 @@ export function Home() {
                                 }}
                             >
                                 {copied ? (
-                                    <Check className="w-5 h-5 text-green-400" />
+                                    <FaCheck className="w-5 h-5 text-green-400" />
                                 ) : (
-                                    <Terminal className="w-5 h-5 text-slate-400 group-hover:text-white transition-colors" />
+                                    <FaTerminal className="w-5 h-5 text-slate-400 group-hover:text-white transition-colors" />
                                 )}
                                 <code className="font-mono text-slate-300">
                                     bun create <span className="text-rose-400">honolulu@latest</span>
@@ -165,11 +168,11 @@ export function Home() {
                         {/* Hero Feature - Speed (Bun) */}
                         <div className="md:col-span-2 p-8 rounded-3xl bg-gradient-to-br from-slate-900 to-slate-800 border border-slate-700/50 hover:border-teal-500/50 transition-all group relative overflow-hidden">
                             <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity">
-                                <Zap className="w-48 h-48 text-teal-400" />
+                                <FaRocket className="w-48 h-48 text-teal-400" />
                             </div>
                             <div className="relative z-10">
                                 <div className="w-12 h-12 bg-teal-500/20 rounded-xl flex items-center justify-center mb-6 text-teal-400">
-                                    <Zap className="w-6 h-6" />
+                                    <FaRocket className="w-6 h-6" />
                                 </div>
                                 <h3 className="text-2xl font-bold text-white mb-3">Supersonic Jet-Ski (Bun)</h3>
                                 <p className="text-slate-400 text-lg leading-relaxed max-w-md">
@@ -182,7 +185,7 @@ export function Home() {
                         {/* Monorepo */}
                         <div className="md:col-span-1 p-8 rounded-3xl bg-slate-900/50 border border-slate-800 hover:bg-slate-800 transition-colors">
                             <div className="w-12 h-12 bg-blue-500/20 rounded-xl flex items-center justify-center mb-4 text-blue-400">
-                                <Code2 className="w-6 h-6" />
+                                <FaNetworkWired className="w-6 h-6" />
                             </div>
                             <h3 className="text-xl font-bold text-white mb-2">Island Hopping</h3>
                             <p className="text-slate-400">
@@ -193,7 +196,7 @@ export function Home() {
                         {/* Types */}
                         <div className="md:col-span-1 p-8 rounded-3xl bg-slate-900/50 border border-slate-800 hover:bg-slate-800 transition-colors">
                             <div className="w-12 h-12 bg-rose-500/20 rounded-xl flex items-center justify-center mb-4 text-rose-400">
-                                <Terminal className="w-6 h-6" />
+                                <FaConciergeBell className="w-6 h-6" />
                             </div>
                             <h3 className="text-xl font-bold text-white mb-2">The Concierge</h3>
                             <p className="text-slate-400">
@@ -204,11 +207,11 @@ export function Home() {
                         {/* Database - Wide */}
                         <div className="md:col-span-2 p-8 rounded-3xl bg-gradient-to-br from-slate-900 to-slate-800 border border-slate-700/50 hover:border-purple-500/50 transition-all group relative overflow-hidden">
                             <div className="absolute -bottom-8 -right-8 p-8 opacity-10 group-hover:opacity-20 transition-opacity">
-                                <Database className="w-40 h-40 text-purple-400" />
+                                <FaDatabase className="w-40 h-40 text-purple-400" />
                             </div>
                             <div className="relative z-10">
                                 <div className="w-12 h-12 bg-purple-500/20 rounded-xl flex items-center justify-center mb-6 text-purple-400">
-                                    <Database className="w-6 h-6" />
+                                    <FaDatabase className="w-6 h-6" />
                                 </div>
                                 <h3 className="text-2xl font-bold text-white mb-3">5-Star Room Service (Drizzle)</h3>
                                 <p className="text-slate-400 text-lg leading-relaxed max-w-lg">
@@ -221,7 +224,7 @@ export function Home() {
                         {/* Frontend */}
                         <div className="md:col-span-1 p-8 rounded-3xl bg-slate-900/50 border border-slate-800 hover:bg-slate-800 transition-colors">
                             <div className="w-12 h-12 bg-orange-500/20 rounded-xl flex items-center justify-center mb-4 text-orange-400">
-                                <Globe className="w-6 h-6" />
+                                <FaUmbrellaBeach className="w-6 h-6" />
                             </div>
                             <h3 className="text-xl font-bold text-white mb-2">Ocean Views</h3>
                             <p className="text-slate-400">
@@ -232,7 +235,7 @@ export function Home() {
                         {/* Backend */}
                         <div className="md:col-span-1 p-8 rounded-3xl bg-slate-900/50 border border-slate-800 hover:bg-slate-800 transition-colors">
                             <div className="w-12 h-12 bg-yellow-500/20 rounded-xl flex items-center justify-center mb-4 text-yellow-400">
-                                <Server className="w-6 h-6" />
+                                <FaCocktail className="w-6 h-6" />
                             </div>
                             <h3 className="text-xl font-bold text-white mb-2">The Tiki Bar</h3>
                             <p className="text-slate-400">
@@ -243,7 +246,7 @@ export function Home() {
                         {/* Deploy */}
                         <div className="md:col-span-1 p-8 rounded-3xl bg-slate-900/50 border border-slate-800 hover:bg-slate-800 transition-colors">
                             <div className="w-12 h-12 bg-cyan-500/20 rounded-xl flex items-center justify-center mb-4 text-cyan-400">
-                                <Github className="w-6 h-6" />
+                                <FaShip className="w-6 h-6" />
                             </div>
                             <h3 className="text-xl font-bold text-white mb-2">Sail Away</h3>
                             <p className="text-slate-400">
