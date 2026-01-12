@@ -21,10 +21,7 @@ jobs:
           bun-version: latest
 
       - name: Install Dependencies
-        run: bun install --frozen-lockfile --ignore-scripts
-
-      - name: Build Shared Package
-        run: bun run build --filter=shared
+        run: bun install --frozen-lockfile
 
       - name: Build
         run: bun run build

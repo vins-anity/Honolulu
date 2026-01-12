@@ -1,7 +1,7 @@
 import { Hono } from "hono";
 import { logger } from "hono/logger";
 import { vValidator } from "@hono/valibot-validator";
-import { HelloWorldSchema } from "../../shared/dist";
+import { HelloWorldSchema } from "shared";
 import { db } from "./db";
 import { posts } from "./db/schema";
 
