@@ -1,7 +1,6 @@
 import React from "react";
 import { Box, Text } from "ink";
 import Spinner from "ink-spinner";
-import chalk from "chalk";
 
 export type InstallStep = "scaffold" | "git" | "install" | "complete";
 
@@ -59,26 +58,32 @@ export const InstallProgress: React.FC<InstallProgressProps> = ({
     return (
         <Box flexDirection="column" marginTop={1}>
             <Box>
-                {renderStepIcon(status.scaffold)}{" "}
-                {renderStepText(status.scaffold, "🌺 Planting seeds...")}
+                {renderStepIcon(status.scaffold)}
+                <Box marginLeft={1}>
+                    {renderStepText(status.scaffold, "🌺 Planting seeds...")}
+                </Box>
             </Box>
             <Box>
-                {renderStepIcon(status.git)}{" "}
-                {renderStepText(
-                    status.git,
-                    status.git === "skipped"
-                        ? "📦 Git initialization (skipped)"
-                        : "📦 Initializing git...",
-                )}
+                {renderStepIcon(status.git)}
+                <Box marginLeft={1}>
+                    {renderStepText(
+                        status.git,
+                        status.git === "skipped"
+                            ? "📦 Git initialization (skipped)"
+                            : "📦 Initializing git...",
+                    )}
+                </Box>
             </Box>
             <Box>
-                {renderStepIcon(status.install)}{" "}
-                {renderStepText(
-                    status.install,
-                    status.install === "skipped"
-                        ? "🍹 Dependencies (skipped)"
-                        : "🍹 Installing dependencies with bun...",
-                )}
+                {renderStepIcon(status.install)}
+                <Box marginLeft={1}>
+                    {renderStepText(
+                        status.install,
+                        status.install === "skipped"
+                            ? "🍹 Dependencies (skipped)"
+                            : "🍹 Installing dependencies with bun...",
+                    )}
+                </Box>
             </Box>
         </Box>
     );

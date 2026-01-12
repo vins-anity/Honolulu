@@ -18,7 +18,7 @@ import {
 import { Link } from "react-router-dom";
 import Honolulu from "../assets/honolulu-2.svg";
 
-const VERSION = "1.0.8";
+const VERSION = "1.0.9";
 
 export function Home() {
     const [dropdownOpen, setDropdownOpen] = useState(false);

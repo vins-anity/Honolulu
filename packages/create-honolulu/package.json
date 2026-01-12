@@ -1,6 +1,6 @@
 {
     "name": "create-honolulu",
-    "version": "1.0.8",
+    "version": "1.0.9",
     "description": "Create a new Honolulu project with interactive prompts",
     "type": "module",
     "bin": {

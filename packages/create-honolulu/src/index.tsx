@@ -39,7 +39,7 @@ interface AppProps {
 
 const App: React.FC<AppProps> = ({ initialProjectName }) => {
     const [state, setState] = useState<AppState>(
-        initialProjectName ? "select-database" : "input-name",
+        initialProjectName ? "select-architecture" : "input-name",
     );
     const [projectName, setProjectName] = useState(
         initialProjectName || "my-honolulu-app",
@@ -172,7 +172,7 @@ const App: React.FC<AppProps> = ({ initialProjectName }) => {
 
     return (
         <Box flexDirection="column" padding={1}>
-            <Header version="1.0.8" />
+            <Header version="1.0.9" />
 
             {state === "input-name" && (
                 <ProjectNameInput
