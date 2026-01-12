@@ -14,7 +14,7 @@ async function main() {
 
     p.intro(`${pc.bgMagenta(pc.black(" 🌺 HONOLULU "))} ${pc.dim("v1.0.0")}`);
 
-    p.log.message(pc.dim("  The turbocharged monorepo starter acting as a single unit.\n  Built with Bun, Hono, React, and Vite."));
+    p.log.message(pc.dim("  The vacation your codebase deserves.\n  Stop swimming in configuration files. Start surfing your dream product."));
 
     const project = await p.group(
         {

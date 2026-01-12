@@ -122,15 +122,15 @@ export function Home() {
                         </div>
 
                         <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-extrabold tracking-tight text-white leading-[1.1]">
-                            The Turbocharged
+                            The Vacation Your
                             <br />
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-400 via-pink-400 to-orange-400">
-                                Monorepo Starter
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 via-cyan-400 to-sky-400">
+                                Codebase Deserves
                             </span>
                         </h1>
 
                         <p className="text-base sm:text-lg lg:text-xl text-slate-400 max-w-xl mx-auto lg:mx-0 leading-relaxed">
-                            Stop fighting configuration files. Start shipping your dream
+                            Stop swimming in configuration files. Start surfing your dream
                             product. Powered by{" "}
                             <span className="text-white font-semibold">Bun</span>,{" "}
                             <span className="text-white font-semibold">Hono</span>, and{" "}

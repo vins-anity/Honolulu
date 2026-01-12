@@ -1,7 +1,7 @@
 # Honolulu 🌺
 
-> **The Turbocharged Monorepo Starterpack.**
-> *Stop configuring. Start shipping. Go touch grass.*
+> **The vacation your codebase deserves.**
+> *Stop swimming in configuration files. Start surfing your dream product.*
 
 Honolulu is a high-octane, Bun-fueled engine designed to launch your next product fast.
 
@@ -36,16 +36,18 @@ bun run dev
 ## Project Structure
 
 ```
-├── api/           # Hono backend
-│   └── src/
-│       ├── routes/    # Route modules
-│       └── db/        # Drizzle schema & connection
-├── web/           # React frontend
-│   └── src/
-│       ├── components/
-│       └── lib/       # Stores, utils, query client
-├── shared/        # Shared types & schemas
-└── .github/       # CI/CD workflows
+├── apps/
+│   ├── api/           # Hono backend
+│   │   └── src/
+│   │       ├── routes/    # Route modules
+│   │       └── db/        # Drizzle schema & connection
+│   └── web/           # React frontend
+│       └── src/
+│           ├── components/
+│           └── lib/       # Stores, utils, query client
+├── packages/
+│   └── shared/        # Shared types & schemas
+└── .github/           # CI/CD workflows
 ```
 
 ---

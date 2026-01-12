@@ -122,15 +122,15 @@ export function Home() {
                         </div>
 
                         <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-extrabold tracking-tight text-white leading-[1.1]">
-                            The Turbocharged
+                            The Vacation Your
                             <br />
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-400 via-pink-400 to-orange-400">
-                                Monorepo Starter
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 via-cyan-400 to-sky-400">
+                                Codebase Deserves
                             </span>
                         </h1>
 
                         <p className="text-base sm:text-lg lg:text-xl text-slate-400 max-w-xl mx-auto lg:mx-0 leading-relaxed">
-                            Stop fighting configuration files. Start shipping your dream
+                            Stop swimming in configuration files. Start surfing your dream
                             product. Powered by{" "}
                             <span className="text-white font-semibold">Bun</span>,{" "}
                             <span className="text-white font-semibold">Hono</span>, and{" "}
@@ -216,13 +216,14 @@ export function Home() {
                                 <div className="w-12 h-12 sm:w-14 sm:h-14 bg-rose-500/20 rounded-xl flex items-center justify-center mb-4 sm:mb-5 text-rose-400">
                                     <feature.icon className="w-6 h-6 sm:w-7 sm:h-7" />
                                 </div>
-                                <h3 className="text-lg sm:text-xl font-bold text-white mb-2 sm:mb-3">
-                                    {feature.title}
-                                </h3>
-                                <p className="text-sm sm:text-base text-slate-400 leading-relaxed">
-                                    {feature.desc}
-                                </p>
-                            </div>
+                                <h1 className="text-4xl md:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-teal-600 to-cyan-500 mb-6 drop-shadow-sm">
+                                    The Vacation Your Codebase Deserves
+                                </h1>
+
+                                <p className="text-xl md:text-2xl text-slate-600 mb-8 max-w-2xl mx-auto leading-relaxed">
+                                    Stop swimming in configuration files. <br />
+                                    <span className="font-semibold text-teal-600">Start surfing your dream product.</span>
+                                </p>                            </div>
                         ))}
                     </div>
                 </div>

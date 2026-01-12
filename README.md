@@ -1,7 +1,7 @@
 # Honolulu 🌺
 
-> **The Turbocharged Monorepo Starterpack.**
-> *Stop configuring. Start shipping. Go touch grass.*
+> **The vacation your codebase deserves.**
+> *Stop swimming in configuration files. Start surfing your dream product.*
 
 Honolulu is a high-octane, Bun-fueled engine designed to launch your next product fast.
 
