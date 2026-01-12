@@ -14,6 +14,14 @@ Honolulu is a high-octane, Bun-fueled engine designed to launch your next produc
 bun create honolulu
 ```
 
+The CLI will guide you through:
+- **Architecture**: Opinionated (batteries-included) or Clean Slate
+- **Styling**: Tailwind CSS, Shadcn UI, or Classic CSS
+- **Database**: PostgreSQL, MySQL, SQLite, or Supabase
+- **Auth**: Supabase, Clerk, Auth.js, or None
+- **API**: Basic Logger or OpenAPI + Scalar
+
+
 **Or clone this template:**
 ```bash
 bun install

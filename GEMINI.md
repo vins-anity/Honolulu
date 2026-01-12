@@ -11,7 +11,6 @@ Honolulu is a production-ready monorepo starter built with **Bun**, **Hono**, **
 - **Validation**: Valibot (v1.0+) - *Do NOT use Zod*
 - **Styling**: Tailwind CSS v4
 - **State Management**: Zustand (Client) + TanStack Query (Server)
-- **CLI**: Ink (for `create-honolulu` package)
 - **Linting/Formatting**: Biome - *Do NOT use ESLint/Prettier*
 - **Testing**: Vitest
 

@@ -1,3 +1,5 @@
+import { ArchitectureSelect } from "./components/ArchitectureSelect.js";
+import { StyleSelect } from "./components/StyleSelect.js";
 #!/usr/bin/env node
 import React, { useState, useEffect } from "react";
 import { render, Box } from "ink";
@@ -19,8 +21,6 @@ import { installDependencies } from "./utils/install.js";
 
 type AppState =
     | "input-name"
-    | "select-architecture"
-    | "select-style"
     | "select-database"
     | "select-auth"
     | "select-api"
@@ -30,8 +30,6 @@ type AppState =
     | "error";
 
 import { ApiSelect } from "./components/ApiSelect.js";
-import { ArchitectureSelect } from "./components/ArchitectureSelect.js";
-import { StyleSelect } from "./components/StyleSelect.js";
 
 interface AppProps {
     initialProjectName?: string;

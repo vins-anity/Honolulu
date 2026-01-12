@@ -10,6 +10,8 @@ interface NextStepsProps {
     database: DatabaseOption;
     auth: AuthOption;
     apiStyle: string;
+    architecture: string;
+    style: string;
 }
 
 const getDatabaseLabel = (db: DatabaseOption): string => {
@@ -38,6 +40,8 @@ export const NextSteps: React.FC<NextStepsProps> = ({
     database,
     auth,
     apiStyle,
+    architecture,
+    style,
 }) => {
     return (
         <Box flexDirection="column" marginTop={1}>
@@ -66,6 +70,12 @@ export const NextSteps: React.FC<NextStepsProps> = ({
                 </Text>
                 <Text color="cyan">
                     ✓ API Style: {apiStyle === "basic" ? "Basic Logger" : "OpenAPI + Scalar"}
+                </Text>
+                <Text color="cyan">
+                    ✓ Architecture: {architecture === "opinionated" ? "Opinionated" : "Unopinionated"}
+                </Text>
+                <Text color="cyan">
+                    ✓ Style: {style === "tailwind" ? "Tailwind CSS" : style === "shadcn" ? "Shadcn UI" : "Classic CSS"}
                 </Text>
             </Box>
 

@@ -28,8 +28,12 @@ pnpm create honolulu
 When you run `create-honolulu`, you'll be prompted for:
 
 1. **Project Name**
-2. **Supabase Support** (Yes/No)
-3. **Git Initialization**
+2. **Architecture** (Opinionated/Unopinionated)
+3. **Styling** (Tailwind/Shadcn/Classic)
+4. **Database** (PostgreSQL/MySQL/SQLite/Supabase)
+5. **Auth** (Supabase/Clerk/Auth.js/None)
+6. **API Style** (Basic/OpenAPI)
+7. **Git Initialization**
 
 The CLI will automatically setup your project structure:
 

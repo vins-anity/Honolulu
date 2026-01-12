@@ -36,7 +36,7 @@ export function GetStarted() {
                         <div className="flex-1">
                             <h3 className="font-medium text-white mb-2">Follow the prompts</h3>
                             <p className="text-slate-400 text-sm">
-                                Choose your database (PostgreSQL, Supabase, or None) and authentication (Supabase, Better Auth, or None).
+                                Customize your stack: Select your Database, Authentication provider, Architecture (Opinionated/Unopinionated), and Styling preference (Tailwind, Shadcn, or Classic CSS).
                             </p>
                         </div>
                     </div>
