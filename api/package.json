@@ -13,7 +13,7 @@
     "hono": "^4.10.8",
     "hono-pino": "^0.10.3",
     "postgres": "^3.4.8",
-    "shared": "file:../shared",
+    "shared": "workspace:*",
     "valibot": "^1.2.0"
   },
   "devDependencies": {
