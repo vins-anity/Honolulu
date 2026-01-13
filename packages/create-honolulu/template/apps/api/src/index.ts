@@ -46,11 +46,36 @@ app.use("*", errorHandler);
 // ============================================
 
 app.get("/", (c) => {
-    return c.json({
-        message: "🌺 Welcome to Honolulu API!",
-        version: "1.0.0",
-        docs: "/docs",
-    });
+    return c.html(`
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Honolulu API</title>
+    <meta name="description" content="A high-performance Hono API built with Honolulu starter.">
+    <meta property="og:title" content="Honolulu API">
+    <meta property="og:description" content="A high-performance Hono API built with Honolulu starter.">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary">
+    <style>
+        body { font-family: system-ui, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; background: #fafafa; color: #333; }
+        .container { text-align: center; padding: 2rem; border-radius: 12px; background: white; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); max-width: 400px; width: 90%; }
+        h1 { margin: 0 0 1rem; color: #ea580c; font-size: 2rem; }
+        p { margin: 0 0 1.5rem; line-height: 1.5; color: #4b5563; }
+        .btn { display: inline-block; background: #ea580c; color: white; padding: 0.75rem 1.5rem; border-radius: 6px; text-decoration: none; font-weight: 500; transition: background 0.2s; }
+        .btn:hover { background: #c2410c; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌺 Honolulu API</h1>
+        <p>Your high-performance API is up and running.</p>
+        <a href="/reference" class="btn">View API Docs</a>
+    </div>
+</body>
+</html>
+    `);
 });
 
 app.get("/health", (c) => {
