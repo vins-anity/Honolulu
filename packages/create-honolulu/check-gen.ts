@@ -12,6 +12,8 @@ async function run() {
 		database: "sqlite",
 		auth: "none",
 		apiStyle: "openapi",
+		architecture: "opinionated",
+		style: "tailwind",
 	});
 
 	// Verify Package JSON
@@ -23,6 +25,26 @@ async function run() {
 		console.log("✅ Scalar dependency found");
 	} else {
 		console.error("❌ Scalar dependency MISSING");
+		process.exit(1);
+	}
+
+	// Verify README for SQLite
+	const readmePath = path.join(target, "README.md");
+	const readme = await fs.readFile(readmePath, "utf8");
+	if (readme.includes("Database: SQLite (Local)")) {
+		console.log("✅ README contains SQLite instructions");
+	} else {
+		console.error("❌ README missing SQLite instructions");
+		process.exit(1);
+	}
+
+	// Verify .env for SQLite
+	const envPath = path.join(target, ".env");
+	const env = await fs.readFile(envPath, "utf8");
+	if (env.includes("DATABASE_URL=file:local.db")) {
+		console.log("✅ .env contains SQLite connection");
+	} else {
+		console.error("❌ .env missing SQLite connection");
 		process.exit(1);
 	}
 
