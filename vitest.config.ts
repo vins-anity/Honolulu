@@ -5,6 +5,6 @@ export default defineConfig({
 		globals: true,
 		environment: "node",
 		include: ["**/*.test.ts", "**/*.test.tsx"],
-		exclude: ["node_modules", "dist", ".turbo"],
+		exclude: ["node_modules", "dist", ".turbo", "packages/create-honolulu/template"],
 	},
 });
