@@ -1,53 +1,53 @@
 {
-    "name": "create-honolulu",
-    "version": "1.0.9",
-    "description": "Create a new Honolulu project with interactive prompts",
-    "type": "module",
-    "bin": {
-        "create-honolulu": "dist/index.js"
-    },
-    "files": [
-        "dist",
-        "template"
-    ],
-    "scripts": {
-        "build": "bun build src/index.tsx --outdir dist --target node && chmod +x dist/index.js",
-        "dev": "bun run src/index.tsx"
-    },
-    "dependencies": {
-        "ink": "^6.6.0",
-        "react": "^19.0.0",
-        "ink-text-input": "^6.0.0",
-        "ink-spinner": "^5.0.0",
-        "ink-select-input": "^6.0.0",
-        "ink-gradient": "^3.0.0",
-        "ink-big-text": "^2.0.0",
-        "chalk": "^5.4.1"
-    },
-    "devDependencies": {
-        "@types/node": "^22.19.2",
-        "react-devtools-core": "^7.0.1",
-        "typescript": "~5.7.3"
-    },
-    "keywords": [
-        "honolulu",
-        "starter",
-        "monorepo",
-        "bun",
-        "hono",
-        "react",
-        "template",
-        "cli"
-    ],
-    "author": "Steve Simkins",
-    "homepage": "https://github.com/vins-anity/Honolulu#readme",
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/vins-anity/Honolulu.git",
-        "directory": "packages/create-honolulu"
-    },
-    "bugs": {
-        "url": "https://github.com/vins-anity/Honolulu/issues"
-    },
-    "license": "MIT"
+	"name": "create-honolulu",
+	"version": "1.0.9",
+	"description": "Create a new Honolulu project with interactive prompts",
+	"type": "module",
+	"bin": {
+		"create-honolulu": "dist/index.js"
+	},
+	"files": [
+		"dist",
+		"template"
+	],
+	"scripts": {
+		"build": "bun build src/index.tsx --outdir dist --target node && chmod +x dist/index.js",
+		"dev": "bun run src/index.tsx"
+	},
+	"dependencies": {
+		"ink": "^6.6.0",
+		"react": "^19.0.0",
+		"ink-text-input": "^6.0.0",
+		"ink-spinner": "^5.0.0",
+		"ink-select-input": "^6.0.0",
+		"ink-gradient": "^3.0.0",
+		"ink-big-text": "^2.0.0",
+		"chalk": "^5.4.1"
+	},
+	"devDependencies": {
+		"@types/node": "^22.19.2",
+		"react-devtools-core": "^7.0.1",
+		"typescript": "~5.7.3"
+	},
+	"keywords": [
+		"honolulu",
+		"starter",
+		"monorepo",
+		"bun",
+		"hono",
+		"react",
+		"template",
+		"cli"
+	],
+	"author": "Steve Simkins",
+	"homepage": "https://github.com/vins-anity/Honolulu#readme",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/vins-anity/Honolulu.git",
+		"directory": "packages/create-honolulu"
+	},
+	"bugs": {
+		"url": "https://github.com/vins-anity/Honolulu/issues"
+	},
+	"license": "MIT"
 }

@@ -1,16 +1,14 @@
 {
-    "extends": "../../tsconfig.json",
-    "compilerOptions": {
-        "outDir": "./dist",
-        "rootDir": "./src",
-        "module": "ESNext",
-        "target": "ESNext",
-        "moduleResolution": "bundler",
-        "jsx": "react",
-        "jsxFactory": "React.createElement",
-        "jsxFragmentFactory": "React.Fragment"
-    },
-    "include": [
-        "src/**/*"
-    ]
+	"extends": "../../tsconfig.json",
+	"compilerOptions": {
+		"outDir": "./dist",
+		"rootDir": "./src",
+		"module": "ESNext",
+		"target": "ESNext",
+		"moduleResolution": "bundler",
+		"jsx": "react",
+		"jsxFactory": "React.createElement",
+		"jsxFragmentFactory": "React.Fragment"
+	},
+	"include": ["src/**/*"]
 }

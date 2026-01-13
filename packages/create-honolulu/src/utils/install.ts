@@ -4,13 +4,12 @@ import { promisify } from "node:util";
 const execAsync = promisify(exec);
 
 export async function installDependencies(
-    targetDir: string,
-    packageManager: string,
+	targetDir: string,
+	packageManager: string,
 ): Promise<void> {
-    const command =
-        packageManager === "yarn" ? "yarn" : `${packageManager} install`;
+	const command = packageManager === "yarn" ? "yarn" : `${packageManager} install`;
 
-    await execAsync(command, {
-        cwd: targetDir,
-    });
+	await execAsync(command, {
+		cwd: targetDir,
+	});
 }
