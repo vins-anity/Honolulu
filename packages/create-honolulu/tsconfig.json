@@ -6,10 +6,7 @@
 		"module": "ESNext",
 		"target": "ESNext",
 		"moduleResolution": "bundler",
-		"moduleResolution": "bundler",
 		"jsx": "react-jsx"
 	},
-	"include": [
-		"src/**/*"
-	]
+	"include": ["src/**/*"]
 }
