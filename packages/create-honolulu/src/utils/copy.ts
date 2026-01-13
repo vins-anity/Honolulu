@@ -161,7 +161,7 @@ async function cleanupForClassicCss(targetDir: string) {
 		delete pkg.devDependencies.tailwindcss;
 		delete pkg.devDependencies.autoprefixer;
 		delete pkg.devDependencies.postcss;
-		await fs.writeFile(pkgPath, JSON.stringify(pkg, null, 4) + "\n");
+		await fs.writeFile(pkgPath, `${JSON.stringify(pkg, null, 4)}\n`);
 	}
 
 	// Replace index.css with minimal CSS
@@ -249,7 +249,7 @@ async function setupOpenApi(targetDir: string) {
 		packageJson.dependencies["@scalar/hono-api-reference"] = "^0.5.150";
 		packageJson.dependencies["hono-openapi"] = "^0.4.1";
 
-		await fs.writeFile(apiPackageJsonPath, JSON.stringify(packageJson, null, 4) + "\n");
+		await fs.writeFile(apiPackageJsonPath, `${JSON.stringify(packageJson, null, 4)}\n`);
 	} catch (error) {
 		console.warn("Failed to update api/package.json for OpenAPI", error);
 	}
