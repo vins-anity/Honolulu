@@ -6,9 +6,10 @@
 		"module": "ESNext",
 		"target": "ESNext",
 		"moduleResolution": "bundler",
-		"jsx": "react",
-		"jsxFactory": "React.createElement",
-		"jsxFragmentFactory": "React.Fragment"
+		"moduleResolution": "bundler",
+		"jsx": "react-jsx"
 	},
-	"include": ["src/**/*"]
+	"include": [
+		"src/**/*"
+	]
 }
