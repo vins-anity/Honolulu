@@ -70,7 +70,7 @@ describe("Todos API Routes", () => {
     describe("DELETE /todos/:id", () => {
         it("should return 404 when deleting non-existent todo", async () => {
             // Override mock to return empty array (not found)
-            const returningMock = db.returning as unknown as ReturnType<typeof vi.fn>;
+            const returningMock = (db as any).returning;
             returningMock.mockResolvedValueOnce([]);
 
             const res = await app.request("/todos/999", {

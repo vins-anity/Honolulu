@@ -161,7 +161,7 @@ async function cleanupForClassicCss(targetDir: string) {
 		delete pkg.devDependencies.tailwindcss;
 		delete pkg.devDependencies.autoprefixer;
 		delete pkg.devDependencies.postcss;
-		await fs.writeFile(pkgPath, JSON.stringify(pkg, null, 2));
+		await fs.writeFile(pkgPath, JSON.stringify(pkg, null, 4) + "\n");
 	}
 
 	// Replace index.css with minimal CSS
@@ -249,7 +249,7 @@ async function setupOpenApi(targetDir: string) {
 		packageJson.dependencies["@scalar/hono-api-reference"] = "^0.5.150";
 		packageJson.dependencies["hono-openapi"] = "^0.4.1";
 
-		await fs.writeFile(apiPackageJsonPath, JSON.stringify(packageJson, null, 2));
+		await fs.writeFile(apiPackageJsonPath, JSON.stringify(packageJson, null, 4) + "\n");
 	} catch (error) {
 		console.warn("Failed to update api/package.json for OpenAPI", error);
 	}
@@ -272,32 +272,32 @@ async function setupOpenApi(targetDir: string) {
 // ============================================
 
 app.get(
-  "/doc",
-  openAPISpecs(app, {
-    documentation: {
-      info: {
-        title: "Honolulu API",
-        version: "1.0.0",
-        description: "API Documentation",
-      },
-      servers: [
-        {
-          url: "http://localhost:3000",
-          description: "Local Server",
+    "/doc",
+    openAPISpecs(app, {
+        documentation: {
+            info: {
+                title: "Honolulu API",
+                version: "1.0.0",
+                description: "API Documentation",
+            },
+            servers: [
+                {
+                    url: "http://localhost:3000",
+                    description: "Local Server",
+                },
+            ],
         },
-      ],
-    },
-  })
+    }),
 );
 
 app.get(
-  "/reference",
-  apiReference({
-    theme: "saturn",
-    spec: {
-      url: "/doc",
-    },
-  })
+    "/reference",
+    apiReference({
+        theme: "saturn",
+        spec: {
+            url: "/doc",
+        },
+    }),
 );
 `;
 
@@ -379,6 +379,14 @@ async function copyDir(src: string, dest: string): Promise<void> {
 	const entries = await fs.readdir(src, { withFileTypes: true });
 
 	for (const entry of entries) {
+		if (
+			entry.name === "node_modules" ||
+			entry.name === ".turbo" ||
+			entry.name === "dist" ||
+			entry.name === ".git"
+		) {
+			continue;
+		}
 		const srcPath = path.join(src, entry.name);
 		const destPath = path.join(dest, entry.name);
 
